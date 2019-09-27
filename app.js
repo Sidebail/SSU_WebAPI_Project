@@ -4,6 +4,22 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//import mongoose
+var mongoose = require('mongoose')
+
+/* 
+Connect to MongoDB STILL NEED CONNECTION STRING
+
+mongoose.connect(``, {
+  useNewUrlParser: true //avoid deprec. warning
+});
+var db = mongoose.connection;
+db.on('error', err => console.error(err));
+db.once('open', () => console.log('Mongo Connection Successful!'));
+
+*/
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
