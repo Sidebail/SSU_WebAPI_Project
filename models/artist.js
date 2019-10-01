@@ -11,11 +11,13 @@ const Schema = mongoose.Schema;
 //Schema definition
 const artistSchema = new Schema({
     name: { type: String, required: true },
-    test: { type: String }
+    stage: { type: String },
+    duration: {type: String },
+    notes: {type: String }
 });
 
 //Creation of artists + use of schema
 const Artist = mongoose.model('Artist', artistSchema);
 
 //Allow use in other files
-module.exports = Survey;
+module.exports = Artist;
