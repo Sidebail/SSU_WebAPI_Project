@@ -10,6 +10,7 @@ const Schema = mongoose.Schema;
 
 //Schema definition
 const artistSchema = new Schema({
+    ArtistId: {type: Number },
     name: { type: String, required: true },
     stage: { type: String },
     duration: {type: String },

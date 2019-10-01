@@ -1,0 +1,14 @@
+//- create.jade
+//-
+//- create artist form
+extends ../layout
+
+
+block content
+  
+  form(method="POST" action="/artist/create")
+    input(name="name" placeholder="Artist's Name" required=true)
+    input(name="stage" placeholder="Stage" required=true)
+    input(name="duration" placeholder="Duration" required=true)
+    input(name="notes" placeholder="Extra notes" required=false)
+    button(type="submit") Create Artist

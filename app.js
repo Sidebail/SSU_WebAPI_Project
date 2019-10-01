@@ -7,17 +7,17 @@ var logger = require('morgan');
 //import mongoose
 var mongoose = require('mongoose')
 
-/* 
-Connect to MongoDB STILL NEED CONNECTION STRING
+ 
 
-mongoose.connect(``, {
-  useNewUrlParser: true //avoid deprec. warning
+
+mongoose.connect(`mongodb+srv://adminguy:NLYzNnEkhcZmhxaK@musicfestapi-nrzaw.mongodb.net/test?retryWrites=true&w=majority`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true  //avoid deprec. warning
 });
 var db = mongoose.connection;
 db.on('error', err => console.error(err));
 db.once('open', () => console.log('Mongo Connection Successful!'));
 
-*/
 
 
 var indexRouter = require('./routes/index');
