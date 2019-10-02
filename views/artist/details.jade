@@ -3,9 +3,10 @@
 //-
 //- view for a single artist
 extends ../layout
-h1= artist.name
+
 block content
-    p so this should work
+    a(href="/artist") Go Back
+    h1= artist.name
     p= artist.stage
     p= artist.duration
     p= artist.notes

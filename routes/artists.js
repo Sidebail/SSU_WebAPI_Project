@@ -23,9 +23,10 @@ router.get('/create', (req, res) => res.render('artist/create'));
 
 //*POST* create artist after form completion
 router.post('/create', async(req, res) => {
+  //require form
   const body = req.body;
+  
   //create new artist 
-  console.log("create artist");
   const newArtist = new Artist(body);
   const artist = await newArtist.save();
   res.redirect(`/artist/${artist._id}`);
@@ -38,7 +39,7 @@ router.get('/', async(req,res) => {
     res.render('artist/index', {artists});
 });
 
-//*GET* Detailed View of 1 Artist
+//*GET* Detailed View of single Artist
 router.get('/:id', async (req,res) =>{
   const id = req.params.id;
 
