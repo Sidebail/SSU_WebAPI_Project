@@ -50,4 +50,28 @@ router.get('/:id', async (req,res) =>{
   res.render('artist/details', {artist});
 });
 
+
+
+// Delete Artist (GET)
+router.get('/:id/delete',async(req,res) =>{
+  const id = req.params.id;
+
+  const artist = await Artist.findByIdAndDelete(id);
+  const artists = await Artist.find();
+  res.render('artist/index', {artists});
+}); 
+
+//UPDATE the artist*GET* Detailed View of single Artist
+router.post('/:id', async (req,res) =>{
+  //require form
+  const id = req.params.id;
+  const body = req.body;
+
+  const artist = await Artist.findById(id);
+  const newArtist = new Artist(body);
+  artist = newArtist.save();
+
+  res.redirect(`/artist/${artist._id}`);
+});
+
 module.exports = router;
