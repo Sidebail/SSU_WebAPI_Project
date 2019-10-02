@@ -33,9 +33,9 @@ router.post('/create', async(req, res) => {
 
 /* GET artist page. */
 router.get('/', async(req,res) => {
-    //below this line will only execute when this is finished
-    
-    res.render('artist/index', {title: "kevin" });
+    const artists = await Artist.find();
+
+    res.render('artist/index', {artists});
 });
 
 //*GET* Detailed View of 1 Artist

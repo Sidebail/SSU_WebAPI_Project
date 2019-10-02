@@ -4,3 +4,7 @@ block content
   h1= title
   p Welcome to Artists
   a(href="artist/create") Create New Artist
+    ul
+        each artist in artists
+          li
+            a(href=`/artist/${artist._id}`)= artist.name
