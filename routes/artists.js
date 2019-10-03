@@ -53,7 +53,7 @@ router.get('/:id', async (req,res) =>{
 // Delete Artist (GET)
 router.get('/:id/delete',async(req,res) =>{
   const id = req.params.id;
-
+  
   const artist = await Artist.findByIdAndDelete(id);
   res.redirect('/artist');
 }); 
@@ -62,21 +62,19 @@ router.get('/:id/delete',async(req,res) =>{
 router.get('/:id/update', async(req, res) => {
   const id = req.params.id;
 
-  //find survey by id and update
+  //find artist by id and update
   const artist = await Artist.findById(id);
 
   res.render('artist/update', { artist });
 });
 
 //UPDATE the artist
-router.post('/:id', async (req,res) =>{
+router.post('/:id/update', async (req,res) =>{
   //require form
   const id = req.params.id;
   const body = req.body;
 
-  const artist = await Artist.findById(id);
-  const newArtist = new Artist(body);
-  artist = newArtist.save();
+  const artist = await Artist.findByIdAndUpdate(id, body);
 
   res.redirect(`/artist/${artist._id}`);
 });

@@ -1,0 +1,15 @@
+//- update.jade
+//-
+//- update artist form
+extends ../layout
+
+
+block content
+  a(href="/artist") Go Back
+  form(method="POST")
+    input(name="ArtistId" hidden=true value=artist.ArtistId)
+    input(name="name" placeholder="Artist's Name" required=true value=artist.name)
+    input(name="stage" placeholder="Stage" required=true value=artist.stage)
+    input(name="duration" placeholder="Duration" required=true value=artist.duration)
+    input(name="notes" placeholder="Extra notes" required=false value=artist.notes)
+    button(type="submit") Update Artist

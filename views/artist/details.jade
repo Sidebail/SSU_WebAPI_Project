@@ -6,6 +6,8 @@ extends ../layout
 
 block content
     a(href="/artist") Go Back
+    a(href="/artist/" + artist._id + "/update") Update Artist 
+    a(href="/artist/" + artist._id + "/delete") Delete
     h1= artist.name
     p= artist.stage
     p= artist.duration
