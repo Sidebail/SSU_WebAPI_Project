@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Music Festival Site' });
+  res.render('index', { title: 'Woodstock Online' });
 });
 
 module.exports = router;

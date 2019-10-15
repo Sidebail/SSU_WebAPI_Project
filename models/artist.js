@@ -14,7 +14,8 @@ const artistSchema = new Schema({
     name: { type: String, required: true },
     stage: { type: String },
     duration: {type: String },
-    notes: {type: String }
+    notes: {type: String },
+    image: {type: String} //It should be string pal, like, link
 });
 
 //Creation of artists + use of schema

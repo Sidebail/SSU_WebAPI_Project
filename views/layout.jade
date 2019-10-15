@@ -1,7 +1,10 @@
 doctype html
 html
   head
+    meta(property='og:title', content='Woodstock Online')
+
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    include ./partials/nav
     block content

@@ -5,10 +5,18 @@
 extends ../layout
 
 block content
-    a(href="/artist") Go Back
-    a(href="/artist/" + artist._id + "/update") Update Artist 
-    a(href="/artist/" + artist._id + "/delete") Delete
-    h1= artist.name
-    p= artist.stage
-    p= artist.duration
-    p= artist.notes
+    #artistDet_cont
+        h1= artist.name
+        ul
+            li
+                p The artist will be performing at #{artist.stage}
+            li
+                p Performance will take #{artist.duration}
+            li
+                p About the artist:
+                p= artist.notes
+    #buttons_cont
+        a(href="/artist") Go Back 
+        if(!isAuthenticated)
+            a(href="/artist/" + artist._id + "/update") Update Artist 
+            a(href="/artist/" + artist._id + "/delete") Delete

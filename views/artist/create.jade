@@ -7,8 +7,13 @@ extends ../layout
 block content
   a(href="/artist") Go Back
   form(method="POST" action="/artist/create")
-    input(name="name" placeholder="Artist's Name" required=true)
-    input(name="stage" placeholder="Stage" required=true)
-    input(name="duration" placeholder="Duration" required=true)
-    input(name="notes" placeholder="Extra notes" required=false)
-    button(type="submit") Create Artist
+    p
+      input(name="name" placeholder="Artist's Name" required=true)
+    p
+      input(name="stage" placeholder="Stage" required=true)
+    p
+      input(name="duration" placeholder="Duration" required=true)
+    p 
+      input(name="notes" placeholder="Extra notes" required=false style="width:200px; height:200px; resize:both; overflow: auto;")
+    p 
+      button(type="submit") Create Artist

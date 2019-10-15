@@ -2,11 +2,14 @@ extends ../layout
 
 block content
   h1= title
-  p Welcome to Artists
-  a(href="../") Home
-  br
-  a(href="artist/create") Create New Artist
-    ul
-        each artist in artists
-          li
-            a(href=`/artist/${artist._id}`)= artist.name
+  #artistsList_cont
+    h2 Meet the Woodstock artists!
+      ul
+          each artist in artists
+            li
+              a(href=`/artist/${artist._id}`)= artist.name
+  #buttons_cont
+    a(href="../") Home
+    br
+    if(!isAuthenticated)
+      a(href="artist/create") Create New Artist
