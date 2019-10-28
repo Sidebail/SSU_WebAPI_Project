@@ -1,8 +1,7 @@
 /*
 artist.js
 
-- Still have to connect to mongodb
-- Setup artist params (Idk wtf they are)
+- Artist Model
 
 */
 const mongoose = require('mongoose');
