@@ -9,6 +9,8 @@ block content
         h1= artist.name
         ul
             li
+                img.image(src='#{artist.image}' alt="Image not loaded lol")
+            li
                 p The artist will be performing at #{artist.stage}
             li
                 p Performance will take #{artist.duration}
