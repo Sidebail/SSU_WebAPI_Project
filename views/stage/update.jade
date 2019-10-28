@@ -1,0 +1,14 @@
+//- update.jade
+//-
+//- update stage form
+extends ../layout
+
+
+block content
+  a(href="/stage") Go Back
+  form(method="POST")
+    input(name="StageId" hidden=true value=stage.StageId)
+    input(name="name" placeholder="Stage's Name" required=true value=stage.name)
+    input(name="size" placeholder="Size" required=true value=stage.size)
+    input(name="notes" placeholder="Extra notes" required=false value=stage.notes)
+    button(type="submit") Update Stage

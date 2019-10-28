@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+  h1= title
+  #artistsList_cont
+    h2 Meet the Woodstock Stages!
+      ul
+          each stage in stages
+            li
+              a(href=`/stage/${stage._id}`)= stage.name
+  #buttons_cont
+    a(href="../") Home
+    br
+    a(href="stage/create") Create New Stage

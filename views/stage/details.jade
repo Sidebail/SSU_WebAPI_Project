@@ -1,0 +1,19 @@
+//- details.jade
+//-
+//-
+//- view for a single artist
+extends ../layout
+
+block content
+        h1= stage.name
+        ul
+            li
+                p The stage name #{stage.name}
+            li
+                p Stage size: #{stage.size}
+            li
+                p About the Stage:
+                p= stage.notes
+        a(href="/stage") Go Back 
+        a(href="/stage/" + artist._id + "/update") Update Stage
+        a(href="/stage/" + artist._id + "/delete") Delete
