@@ -15,14 +15,14 @@ var Stage = require('../models/stage');
 router.get('/create', (req, res) => res.render('stage/create'));
 
 //*POST* create stage after form completion
-router.post('/stage', async(req, res) => {
+router.post('/create', async(req, res) => {
   //require form
   const body = req.body;
   
   //create new stage 
-  const newStage = new Artist(body);
+  const newStage = new Stage(body);
   const stage = await newStage.save();
-  res.redirect(`/stage/${Stage._id}`);
+  res.redirect(`/stage/${stage._id}`);
 });
 
 /* GET stage page. */
