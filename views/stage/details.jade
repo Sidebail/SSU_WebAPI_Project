@@ -8,6 +8,8 @@ block content
         h1= stage.name
         ul
             li
+                img.image(src='#{stage.image}' alt="Image not loaded :(")
+            li
                 p The stage name #{stage.name}
             li
                 p Stage size: #{stage.size}

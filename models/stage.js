@@ -12,7 +12,8 @@ const stageSchema = new Schema({
     StageId: {type: Number },
     name: { type: String, required: true },
     size: {type: String },
-    notes: {type: String }
+    notes: {type: String },
+    image: {type: String}
 });
 
 //Creation of stage + use of schema
