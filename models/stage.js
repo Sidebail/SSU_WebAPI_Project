@@ -12,6 +12,7 @@ const stageSchema = new Schema({
     StageId: {type: Number },
     name: { type: String, required: true },
     size: {type: String },
+    performance: {type: [mongoose.Schema.Types.ObjectId]},
     notes: {type: String },
     image: {type: String}
 });

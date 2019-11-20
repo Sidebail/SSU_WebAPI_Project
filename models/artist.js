@@ -11,8 +11,6 @@ const Schema = mongoose.Schema;
 const artistSchema = new Schema({
     ArtistId: {type: Number },
     name: { type: String, required: true },
-    stage: { type: String },
-    duration: {type: String },
     notes: {type: String },
     image: {type: String} 
 });

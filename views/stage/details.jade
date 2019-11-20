@@ -10,6 +10,17 @@ block content
             li
                 img.image(src='#{stage.image}' alt="Image not loaded :(")
             li
+                p Performers:
+                    
+                    each item in perfObjs
+                        if item.name == "None."
+                        
+                        else
+                            p= `Name: ${item.name}`
+                            p= `Time: ${item.showtime}`
+                            br
+                
+            li
                 p The stage name #{stage.name}
             li
                 p Stage size: #{stage.size}

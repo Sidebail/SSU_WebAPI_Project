@@ -7,9 +7,34 @@ extends ../layout
 block content
   a(href="/stage") Go Back
   form(method="POST")
-    input(name="StageId" hidden=true value=stage.StageId)
-    input(name="name" placeholder="Stage's Name" required=true value=stage.name)
-    input(name="size" placeholder="Size" required=true value=stage.size)
-    input(name="notes" placeholder="Extra notes" required=false value=stage.notes)
-    input(name="image" placeholder="Image link" required=false value=stage.image)
-    button(type="submit") Update Stage
+    p
+      input(name="StageId" hidden=true value=stage.StageId)
+    p
+      input(name="name" placeholder="Stage's Name" required=true value=stage.name)
+    p
+      select(name="performance",type=dropdown)
+          each item in performances
+            option(label=item.name,value=item._id)
+      select(name="performance",type=dropdown)
+          each item in performances
+            option(label=item.name,value=item._id)
+      select(name="performance",type=dropdown)
+          each item in performances
+            option(label=item.name,value=item._id)
+      select(name="performance",type=dropdown)
+          each item in performances
+            option(label=item.name,value=item._id)
+      select(name="performance",type=dropdown)
+          each item in performances
+            option(label=item.name,value=item._id)
+      select(name="performance",type=dropdown)
+          each item in performances
+            option(label=item.name,value=item._id)
+    p
+      input(name="size" placeholder="Size" required=true value=stage.size)
+    p
+      input(name="notes" placeholder="Extra notes" required=false value=stage.notes)
+    p
+      input(name="image" placeholder="Image link" required=false value=stage.image)
+    p
+      button(type="submit") Update Stage

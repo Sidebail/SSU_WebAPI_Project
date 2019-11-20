@@ -7,12 +7,15 @@ CRUD + Routes for Stages
 var express = require('express');
 var router = express.Router();
 var Stage = require('../models/stage');
-
-//TO DO BELOW
+var Performances = require('../models/performance');
+var Artist = require('../models/artist');
 
 
 //*GET* stages creation form
-router.get('/create', (req, res) => res.render('stage/create'));
+router.get('/create', async(req, res) => {
+  const performances = await Performances.find();
+  res.render('stage/create', {performances})
+});
 
 //*POST* create stage after form completion
 router.post('/create', async(req, res) => {
@@ -38,10 +41,24 @@ router.get('/:id', async (req,res) =>{
 
   //find selected id from url
   const stage = await Stage.findById(id);
-
-
-  res.render('stage/details', {stage});
+  const performers = stage.performance
+  const artists = Artist.find()
+  const perfObjs = []
+  const artObjs = []
+  for (const obj of performers){
+    perfObjs.push(await Performances.findById(obj))
+  }
+  res.render('stage/details', {stage, perfObjs, artObjs});
 });
+
+async function getInfo(performs){
+  var perfObjs = []
+  for (const element of performs){
+    var obj = await Performances.findById(element)
+    perfObjs.push(obj)
+  }
+  return perfObjs
+}
 
 // Delete Stage (GET)
 router.get('/:id/delete',async(req,res) =>{
@@ -57,8 +74,8 @@ router.get('/:id/update', async(req, res) => {
 
   //find artist by id and update
   const stage = await Stage.findById(id);
-
-  res.render('stage/update', { stage });
+  const performances = await Performances.find();
+  res.render('stage/update', { stage, performances});
 });
 
 //UPDATE the stage

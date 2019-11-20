@@ -1,0 +1,18 @@
+//- details.jade
+//-
+//-
+//- view for a single artist
+extends ../layout
+
+block content
+        h1= performance.name
+        ul
+            li
+                p= `Artist performing: ${artist.name}`
+            li
+                p= `Time: ${performance.showtime}`
+            li
+                p About the performance: #{performance.notes}
+        a(href="/performance") Go Back
+        a(href="/performance/" + performance._id + "/update") Update Performance 
+        a(href="/performance/" + performance._id + "/delete") Delete

@@ -9,8 +9,6 @@ block content
   form(method="POST")
     input(name="ArtistId" hidden=true value=artist.ArtistId)
     input(name="name" placeholder="Artist's Name" required=true value=artist.name)
-    input(name="stage" placeholder="Stage" required=true value=artist.stage)
-    input(name="duration" placeholder="Duration" required=true value=artist.duration)
     input(name="notes" placeholder="Extra notes" required=false value=artist.notes)
     input(name="image" placeholder="Image link" required=false value=artist.image)
     button(type="submit") Update Artist

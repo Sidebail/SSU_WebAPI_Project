@@ -1,0 +1,21 @@
+//- update.jade
+//-
+//- update artist form
+extends ../layout
+
+
+block content
+  a(href="/artist") Go Back
+  form(method="POST")
+    input(name="ArtistId" hidden=true value=artist.ArtistId)
+    p
+      input(name="name" placeholder="Performance's Name" required=true)
+    p
+      select(name = "dropdown")
+        each item in artists
+          option(label=item.name,value=item, required: true)
+    p
+      input(name="showtime" type="datetime-local")
+    p 
+      input(name="notes" placeholder="Extra notes" required=false style="width:200px; height:200px; resize:both; overflow: auto;")
+    button(type="submit") Update Artist

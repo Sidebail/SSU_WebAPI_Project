@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+  h1= title
+    h2 Meet the Woodstock Performances!
+      ul
+          each performance in performances
+            li
+              a(href=`/performance/${performance._id}`)= performance.name
+              
+    a(href="../") Home
+    br
+    a(href="performance/create") Create New Performance
