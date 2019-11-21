@@ -13,8 +13,8 @@ var Artist = require('../models/artist');
 
 //*GET* stages creation form
 router.get('/create', async(req, res) => {
-  const performances = await Performances.find();
-  res.render('stage/create', {performances})
+  const performance = await Performances.findById("5dd70b631c9d44000047006c");
+  res.render('stage/create', {performance})
 });
 
 //*POST* create stage after form completion
@@ -41,24 +41,16 @@ router.get('/:id', async (req,res) =>{
 
   //find selected id from url
   const stage = await Stage.findById(id);
-  const performers = stage.performance
-  const artists = Artist.find()
-  const perfObjs = []
-  const artObjs = []
-  for (const obj of performers){
-    perfObjs.push(await Performances.findById(obj))
-  }
-  res.render('stage/details', {stage, perfObjs, artObjs});
+  
+  const performers = []
+  performers.push(await Performances.findById(stage.four));
+  performers.push(await Performances.findById(stage.six));
+  performers.push(await Performances.findById(stage.eight));
+  performers.push(await Performances.findById(stage.ten));
+  performers.push(await Performances.findById(stage.twelve));
+  
+  res.render('stage/details', {stage, performers});
 });
-
-async function getInfo(performs){
-  var perfObjs = []
-  for (const element of performs){
-    var obj = await Performances.findById(element)
-    perfObjs.push(obj)
-  }
-  return perfObjs
-}
 
 // Delete Stage (GET)
 router.get('/:id/delete',async(req,res) =>{

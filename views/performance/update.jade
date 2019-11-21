@@ -5,17 +5,16 @@ extends ../layout
 
 
 block content
-  a(href="/artist") Go Back
+  a(href="/performance") Go Back
+
   form(method="POST")
-    input(name="ArtistId" hidden=true value=artist.ArtistId)
     p
-      input(name="name" placeholder="Performance's Name" required=true)
+      input(name="name" placeholder="Performance's Name" required=true value=performance.name)
     p
       select(name = "dropdown")
-        each item in artists
-          option(label=item.name,value=item, required: true)
-    p
-      input(name="showtime" type="datetime-local")
+        each item in artist
+          option(label=item.name,value=item)
     p 
-      input(name="notes" placeholder="Extra notes" required=false style="width:200px; height:200px; resize:both; overflow: auto;")
-    button(type="submit") Update Artist
+      input(name="notes" placeholder="Extra notes" required=false style="width:200px; height:200px; resize:both; overflow: auto;" value=performance.notes)
+    p
+      button(type="submit") Update Performance

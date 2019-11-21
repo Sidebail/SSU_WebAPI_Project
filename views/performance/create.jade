@@ -13,8 +13,6 @@ block content
       select(name="artist",type=dropdown)
         each item in artists
           option(label=item.name,value=item._id)
-    p
-      input(name="showtime", type="datetime-local", required=true)
     p 
       input(name="notes" placeholder="Extra notes" required=false style="width:200px; height:200px; resize:both; overflow: auto;")
     p 

@@ -12,7 +12,11 @@ const stageSchema = new Schema({
     StageId: {type: Number },
     name: { type: String, required: true },
     size: {type: String },
-    performance: {type: [mongoose.Schema.Types.ObjectId]},
+    four: {type: mongoose.Schema.Types.ObjectId, default: null},
+    six: {type: mongoose.Schema.Types.ObjectId, default: null},
+    eight: {type: mongoose.Schema.Types.ObjectId, default: null},
+    ten: {type: mongoose.Schema.Types.ObjectId, default: null},
+    twelve: {type: mongoose.Schema.Types.ObjectId, default: null},
     notes: {type: String },
     image: {type: String}
 });

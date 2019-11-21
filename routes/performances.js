@@ -45,42 +45,56 @@ router.get('/', async(req,res) => {
 //*GET* Detailed View of single performance
 router.get('/:id', async (req,res) =>{
   const id = req.params.id;
-
-  //find selected id from url
-  const performance = await Performance.findById(id);
-  const artist = await Artists.findById(performance.artist);
-
-  res.render('performance/details', {performance, artist});
+  if(id == "5dd70b631c9d44000047006c")
+  {
+    //do nothing because this is the "None." template
+  }
+  else
+  {
+    //find selected id from url
+    const performance = await Performance.findById(id);
+    const artist = await Artists.findById(performance.artist);
+  
+    res.render('performance/details', {performance, artist});
+  }
 });
 
 // Delete Performance (GET)
 router.get('/:id/delete',async(req,res) =>{
   const id = req.params.id;
-  
-  const performance = await Performance.findByIdAndDelete(id);
-  res.redirect('/performance');
+  if(id == "5dd70b631c9d44000047006c"){ /*do nothing because it's a template */ }
+  else
+  {
+    const performance = await Performance.findByIdAndDelete(id);
+    res.redirect('/performance');
+  }
 }); 
 
 //*GET* Update Form
 router.get('/:id/update', async(req, res) => {
   const id = req.params.id;
+  if(id == "5dd70b631c9d44000047006c"){ /*do nothing because it's a template */ }
+  else
+  {
+    //find performance by id and update
+    const performance = await Performance.findById(id);
+    const artist = await Artists.find();
 
-  //find performance by id and update
-  const performance = await Performance.findById(id);
-  const artist = await Artists.find();
-
-  res.render('performance/update', { performance, artist });
+    res.render('performance/update', { performance, artist });
+  }
 });
 
 //UPDATE the performance
 router.post('/:id/update', async (req,res) =>{
   //require form
   const id = req.params.id;
-  const body = req.body;
-
-  const performance = await Performance.findByIdAndUpdate(id, body);
-
-  res.redirect(`/performance/${performance._id}`);
+  if(id == "5dd70b631c9d44000047006c"){ /*do nothing because it's a template */ }
+  else
+  {
+    const body = req.body;
+    const performance = await Performance.findByIdAndUpdate(id, body);
+    res.redirect(`/performance/${performance._id}`);
+  }
 });
 
 module.exports = router;

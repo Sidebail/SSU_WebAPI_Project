@@ -8,26 +8,21 @@ block content
   a(href="/stage") Go Back
   form(method="POST")
     p
-      input(name="StageId" hidden=true value=stage.StageId)
-    p
       input(name="name" placeholder="Stage's Name" required=true value=stage.name)
     p
-      select(name="performance",type=dropdown)
+      select(name="four",type=dropdown)
           each item in performances
             option(label=item.name,value=item._id)
-      select(name="performance",type=dropdown)
+      select(name="six",type=dropdown)
           each item in performances
             option(label=item.name,value=item._id)
-      select(name="performance",type=dropdown)
+      select(name="eight",type=dropdown)
           each item in performances
             option(label=item.name,value=item._id)
-      select(name="performance",type=dropdown)
+      select(name="ten",type=dropdown)
           each item in performances
             option(label=item.name,value=item._id)
-      select(name="performance",type=dropdown)
-          each item in performances
-            option(label=item.name,value=item._id)
-      select(name="performance",type=dropdown)
+      select(name="twelve",type=dropdown)
           each item in performances
             option(label=item.name,value=item._id)
     p

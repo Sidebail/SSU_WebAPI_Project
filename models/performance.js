@@ -12,7 +12,6 @@ const performanceSchema = new Schema({
     performanceId: {type: Number },
     name: { type: String, required: true },
     artist: {type: mongoose.Schema.Types.ObjectId, ref: 'artist'},
-    showtime: {type: Date},
     notes: {type: String }
 });
 

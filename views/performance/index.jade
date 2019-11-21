@@ -5,8 +5,11 @@ block content
     h2 Meet the Woodstock Performances!
       ul
           each performance in performances
-            li
-              a(href=`/performance/${performance._id}`)= performance.name
+            if performance._id == "5dd70b631c9d44000047006c"
+
+            else
+              li
+                a(href=`/performance/${performance._id}`)= performance.name
               
     a(href="../") Home
     br

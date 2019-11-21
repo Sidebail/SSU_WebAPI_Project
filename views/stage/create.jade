@@ -10,29 +10,11 @@ block content
     p
       input(name="name" placeholder="Stage Name" required=true)
     p
-      select(name="performance",type=dropdown)
-        each item in performances
-          option(label=item.name,value=item._id)
-    
-      select(name="performance",type=dropdown)
-        each item in performances
-          option(label=item.name,value=item._id)
-
-      select(name="performance",type=dropdown)
-        each item in performances
-          option(label=item.name,value=item._id)
-
-      select(name="performance",type=dropdown)
-        each item in performances
-          option(label=item.name,value=item._id)
-
-      select(name="performance",type=dropdown)
-        each item in performances
-          option(label=item.name,value=item._id)
-
-      select(name="performance",type=dropdown)
-        each item in performances
-          option(label=item.name,value=item._id)
+      input(name="four" hidden=true value=performance._id)
+      input(name="six" hidden=true value=performance._id)
+      input(name="eight" hidden=true value=performance._id)
+      input(name="ten" hidden=true value=performance._id)
+      input(name="twelve" hidden=true value=performance._id)
     p
       input(name="size" placeholder="Size" required=true)
     p

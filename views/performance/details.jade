@@ -10,8 +10,6 @@ block content
             li
                 p= `Artist performing: ${artist.name}`
             li
-                p= `Time: ${performance.showtime}`
-            li
                 p About the performance: #{performance.notes}
         a(href="/performance") Go Back
         a(href="/performance/" + performance._id + "/update") Update Performance 

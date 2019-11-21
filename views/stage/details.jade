@@ -10,23 +10,15 @@ block content
             li
                 img.image(src='#{stage.image}' alt="Image not loaded :(")
             li
-                p Performers:
-                    
-                    each item in perfObjs
-                        if item.name == "None."
-                        
-                        else
-                            p= `Name: ${item.name}`
-                            p= `Time: ${item.showtime}`
-                            br
-                
-            li
-                p The stage name #{stage.name}
+                p= `4:00pm - 5:45pm: ${performers[0].name}`
+                p= `6:00pm - 7:45pm: ${performers[1].name}`
+                p= `8:00pm - 9:45pm: ${performers[2].name}`
+                p= `10:00pm - 11:45pm: ${performers[3].name}`
+                p= `12:00pm - 1:45am: ${performers[4].name}`
             li
                 p Stage size: #{stage.size}
             li
-                p About the Stage:
-                p= stage.notes
+                p About the Stage: #{stage.notes}
         a(href="/stage") Go Back 
         a(href="/stage/" + stage._id + "/update") Update Stage
         a(href="/stage/" + stage._id + "/delete") Delete
