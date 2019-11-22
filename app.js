@@ -50,6 +50,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(passport.initialize()); // initialize Passport
+app.use(passport.session()); // use passport with session
+
 app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/users', usersRouter);
@@ -68,8 +71,7 @@ app.use(
     saveUninitialized: true
   })
 );
-app.use(passport.initialize()); // initialize Passport
-app.use(passport.session()); // use passport with session
+
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated();
