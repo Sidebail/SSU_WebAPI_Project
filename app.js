@@ -84,12 +84,12 @@ app.use((req, res, next) => {
 passport.use(
   new GithubStrategy(
     {
-      clientID: process.env.GITHUB_CLIENT_ID,
-      //clientID: `da22e3122be35fb158f8`,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      //clientSecret: `3f5afed4d5ec5e258d708c2d07822af1101fc8da`,
-      callbackURL: process.env.GITHUB_CALLBACK_URL
-      //callbackURL: `https://woodstockportla.herokuapp.com/auth/github/callback`
+      //clientID: process.env.GITHUB_CLIENT_ID,
+      clientID: `da22e3122be35fb158f8`,
+      //clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      clientSecret: `3f5afed4d5ec5e258d708c2d07822af1101fc8da`,
+      //callbackURL: process.env.GITHUB_CALLBACK_URL
+      callbackURL: `http://localhost:3000/auth/github/callback`
     },
     function(accessToken, refreshToken, profile, cb) {
       User.findOne({ githubId: profile.id }, function(err, user) {
