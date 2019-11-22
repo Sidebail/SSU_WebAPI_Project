@@ -67,7 +67,13 @@ router.get('/:id/update', async(req, res) => {
   //find artist by id and update
   const stage = await Stage.findById(id);
   const performances = await Performances.find();
-  res.render('stage/update', { stage, performances});
+  const PerformerNames = []
+  PerformerNames.push(await Performances.findById(stage.four))
+  PerformerNames.push(await Performances.findById(stage.six))
+  PerformerNames.push(await Performances.findById(stage.eight))
+  PerformerNames.push(await Performances.findById(stage.ten))
+  PerformerNames.push(await Performances.findById(stage.twelve))
+  res.render('stage/update', { stage, performances, PerformerNames});
 });
 
 //UPDATE the stage
