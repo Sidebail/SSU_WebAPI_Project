@@ -37,9 +37,37 @@ router.post('/create', async(req, res) => {
 
 /* GET performance page. */
 router.get('/', async(req,res) => {
-    const performances = await Performance.find();
+  let {sort, order} = req.query; // performance?sort=name&order=asc
+  if (!sort) sort = "name";
+  if (!order) order = 'asc';
+  const sorting = sort, ordering = order;
+  sort = {
+    [sort]: order === 'desc' ? -1 : 1
+  };
 
-    res.render('performance/index', {performances});
+  let query = {};
+  let {q} = req.query;
+  if (!q) q = '';
+  q = q.trim();
+  if (q.length >= 2) {
+    query = {
+      $or: [
+        {name: new RegExp(`^${q}`, "i")},
+        {name: new RegExp(`${q}`, "i")},
+        {name: new RegExp(`${q}$`, "i")},
+        {notes: new RegExp(`^${q}`, "i")},
+        {notes: new RegExp(`${q}`, "i")},
+        {notes: new RegExp(`${q}$`, "i")},
+        /*
+        {"stages.one": new RegExp(`^${q}`, "i")},
+        {"stages.one": new RegExp(`${q}`, "i")},
+        {"stages.one": new RegExp(`${q}$`, "i")},
+        */
+      ]
+    };
+  }
+  const performances = await Performance.find(query).sort(sort).lean();
+  res.render('performance/index', {performances, sorting, ordering, q});
 });
 
 //*GET* Detailed View of single performance

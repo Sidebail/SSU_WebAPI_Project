@@ -12,7 +12,8 @@ const performanceSchema = new Schema({
     performanceId: {type: Number },
     name: { type: String, required: true },
     artist: {type: mongoose.Schema.Types.ObjectId, ref: 'artist'},
-    notes: {type: String }
+    notes: {type: String },
+   // stages: {type: Schema.Types.Mixed, default: {}},
 });
 
 //Creation of stage + use of schema
