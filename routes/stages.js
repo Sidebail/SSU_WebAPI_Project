@@ -4,87 +4,118 @@ CRUD + Routes for Stages
 */
 
 //import express + create router for Stages
+const _ = require('lodash');
 var express = require('express');
 var router = express.Router();
-var Stage = require('../models/stage');
-var Performances = require('../models/performance');
-var Artist = require('../models/artist');
+var Stage = require('../models/Stage');
+var Stages = require('../models/Stage');
+var Artist = require('../models/Artist');
 
 
 //*GET* stages creation form
 router.get('/create', async(req, res) => {
-  const performance = await Performances.findById("5dd70b631c9d44000047006c");
-  res.render('stage/create', {performance})
+  res.render('stage/create', {})
 });
 
 //*POST* create stage after form completion
-router.post('/create', async(req, res) => {
-  //require form
-  const body = req.body;
-  
-  //create new stage 
-  const newStage = new Stage(body);
-  const stage = await newStage.save();
-  res.redirect(`/stage/${stage._id}`);
+router.post('/create', async (req, res) => {
+  try {
+    const data = _.pick(req.body, ['name', 'notes', 'size', 'image']);
+    const stage = await Stage.create(data);
+    res.redirect(`/stage/${stage._id}`);
+  }
+  catch (error) {
+    console.error(error.message);
+    res.status(500).end('Something went wrong');
+  }
 });
 
 /* GET stage page. */
 router.get('/', async(req,res) => {
-    const stages = await Stage.find();
-
+  try {
+    const stages = await Stage.find({$or: [{deleted: false}, {deleted: {$exists: false}}]}).lean();
     res.render('stage/index', {stages});
+  }
+  catch (error) {
+    console.error(error.message);
+    res.status(500).end('Something went wrong');
+  }
 });
 
 //*GET* Detailed View of single Stage
 router.get('/:id', async (req,res) =>{
-  const id = req.params.id;
-
-  //find selected id from url
-  const stage = await Stage.findById(id);
-  
-  const performers = []
-  performers.push(await Performances.findById(stage.four));
-  performers.push(await Performances.findById(stage.six));
-  performers.push(await Performances.findById(stage.eight));
-  performers.push(await Performances.findById(stage.ten));
-  performers.push(await Performances.findById(stage.twelve));
-  
-  res.render('stage/details', {stage, performers});
+  try {
+    const {id} = req.params;
+    const stage = 
+      await Stage
+        .findOne({_id: id, $or: [{deleted: false}, {deleted: {$exists: false}}]})
+        .lean();
+    if (!stage) {
+      return res.status(404).end('Stage not found');
+    }
+    res.render('stage/details', {stage});
+  }
+  catch (error) {
+    console.error(error.message);
+    res.status(500).end('Something went wrong');
+  }
 });
 
 // Delete Stage (GET)
-router.get('/:id/delete',async(req,res) =>{
-  const id = req.params.id;
-  
-  const stage = await Stage.findByIdAndDelete(id);
-  res.redirect('/stage');
+router.get('/:id/delete', async(req,res) =>{
+  try {
+    const {id} = req.params;
+    const stage = await Stage.findOne({_id: id});
+    if (!stage) {
+      return res.status(404).end('Stage not found');
+    }
+    stage.deleted = true;
+    await stage.save();
+    res.redirect('/stage');
+  }
+  catch (error) {
+    console.error(error.message);
+    res.status(500).end('Something went wrong');
+  }
 }); 
 
 //*GET* Update Form
 router.get('/:id/update', async(req, res) => {
-  const id = req.params.id;
-
-  //find artist by id and update
-  const stage = await Stage.findById(id);
-  const performances = await Performances.find();
-  const PerformerNames = []
-  PerformerNames.push(await Performances.findById(stage.four))
-  PerformerNames.push(await Performances.findById(stage.six))
-  PerformerNames.push(await Performances.findById(stage.eight))
-  PerformerNames.push(await Performances.findById(stage.ten))
-  PerformerNames.push(await Performances.findById(stage.twelve))
-  res.render('stage/update', { stage, performances, PerformerNames});
+  try {
+    const {id} = req.params;
+    const stage = await Stage.findOne({_id: id, deleted: false}).lean();
+    if (!stage) {
+      return res.status(404).end('Stage not found');
+    }
+    res.render('stage/update', { stage });
+  }
+  catch (error) {
+    console.error(error.message);
+    res.status(500).end('Something went wrong');
+  }
 });
 
 //UPDATE the stage
 router.post('/:id/update', async (req,res) =>{
-  //require form
-  const id = req.params.id;
-  const body = req.body;
+  try {
+    const {id} = req.params;
+    const data = _.pick(req.body, ['name', 'notes', 'size', 'image']);
+    
+    const stage = await Stage.findOne({_id: id, deleted: false});
+    if (!stage) {
+      return res.status(404).end('Stage not found');
+    }
+    
+    Object.assign(stage, data);
+    await stage.save();
 
-  const stage = await Stage.findByIdAndUpdate(id, body);
-
-  res.redirect(`/stage/${stage._id}`);
+    res.redirect(`/stage/${stage._id}`);
+  }
+  catch (error) {
+    console.error(error.message);
+    res.status(500).end('Something went wrong');
+  }
 });
+
 
 module.exports = router;

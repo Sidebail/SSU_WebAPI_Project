@@ -11,9 +11,9 @@ block content
     p
       input(name="name" placeholder="Performance's Name" required=true value=performance.name)
     p
-      select(name = "dropdown")
-        each item in artist
-          option(label=item.name,value=item)
+      select(name = "artists", multiple=true)
+        each artist in artists
+          option(label=artist.name,value=artist._id,selected=performance.artists.includes(artist._id))
     p 
       input(name="notes" placeholder="Extra notes" required=false style="width:200px; height:200px; resize:both; overflow: auto;" value=performance.notes)
     p

@@ -1,23 +1,41 @@
-/*
-performance.js
-
-- Performance model
-
-*/
+const uuid = require('uuid');
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const {Schema} = mongoose;
+const {Types} = Schema;
 
-//Schema definition
-const performanceSchema = new Schema({
-    performanceId: {type: Number },
-    name: { type: String, required: true },
-    artist: {type: mongoose.Schema.Types.ObjectId, ref: 'artist'},
-    notes: {type: String },
-   // stages: {type: Schema.Types.Mixed, default: {}},
+const PerformanceSchema = new Schema({
+    _id: {
+        type: Schema.Types.String,
+        default: uuid.v4
+    },
+    name: { 
+        type: Types.String,
+        required: true,
+        index: true
+    },
+    artists: {
+        type: [{type: Types.String, ref: 'Artist'}],
+        index: true,
+        default: []
+    },
+    notes: { 
+        type: Types.String,
+        index: true,
+        default: ''
+    },
+    performanceDates: {
+        type: [{type: Types.String, ref: 'PerformanceDate'}],
+        index: true,
+        default: []
+    },
+    deleted: {
+        type: Types.Boolean,
+        index: true,
+        default: false
+    }
+}, {
+    collection: 'performances',
+    timestamps: true
 });
 
-//Creation of stage + use of schema
-const Performance = mongoose.model('Performance', performanceSchema);
-
-//Allow use in other files
-module.exports = Performance;
+module.exports = mongoose.model('Performance', PerformanceSchema);
