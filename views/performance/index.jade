@@ -6,6 +6,13 @@ block content
       form(method="get", action=`/performance?sort=${sorting}&order=${ordering==='asc' ? 'desc' : 'asc'}`).query
         input(name="q", value=`${q}`)
         button search 
+    p
+      select(name="stages",type=dropdown,multiple=true)
+        each item in stages
+          option(label=item.name,value=item._id)
+    
+      button(type="submit") Search Performance By Stage
+         
       .sort CURRENTLY SORTED BY
         a(href=`/performance?sort=${sorting}&order=${ordering==='asc' ? 'desc' : 'asc'}&q=${q}`) 
           =sorting
