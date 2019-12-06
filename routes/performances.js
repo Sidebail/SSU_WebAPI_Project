@@ -43,6 +43,7 @@ router.post('/create', async (req, res) => {
 
 /* GET performance page. */
 router.get('/', async(req,res) => {
+  let stages = await Stage.find({$or: [{deleted: false}, {deleted: {$exists: false}}]}).lean();
   let {sort, order} = req.query; // performance?sort=name&order=asc
   if (!sort) sort = "createdAt";
   if (!order) order = 'desc';
@@ -69,7 +70,7 @@ router.get('/', async(req,res) => {
   }
   query.deleted = false;
   const performances = await Performance.find(query).sort(sort).lean();
-  res.render('performance/index', {performances, sorting, ordering, q});
+  res.render('performance/index', {performances, stages, sorting, ordering, q});
 });
 
 //*GET* Detailed View of single performance
