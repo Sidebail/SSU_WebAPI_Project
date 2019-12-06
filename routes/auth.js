@@ -20,13 +20,13 @@ router.post(
 router.get(`/auth/github`, passport.authenticate('github'));
 
 router.get(
-  `/auth/github/callback`,
+  '/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
   }
-);
+);  
 
 // Google Login
 router.get(
@@ -102,11 +102,6 @@ router.post('/register', (req, res) => {
     }
   );
 });
-// 5 - Logout
-router.get('/logout', (req, res) => {
-  req.session.destroy(err => {
-    res.redirect('/');
-  });
-});
+
 
 module.exports = router;

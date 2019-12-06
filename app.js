@@ -16,7 +16,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
 const VKontakteStrategy = require('passport-vkontakte').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
-const User = require('./models/user');
+const User = require('./models/newUser');
 
  
 //connect mongoose
@@ -37,7 +37,7 @@ var usersRouter = require('./routes/users');
 var artistRouter = require('./routes/artists');
 var stageRouter = require('./routes/stages');
 var performanceRouter = require('./routes/performances')
-var authRouter = require('./routes/auth')
+var authRouter = require('./routes/newAuth')
 var app = express();
 
 // view engine setup
@@ -50,35 +50,34 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(passport.initialize()); // initialize Passport
-app.use(passport.session()); // use passport with session
 
-app.use('/', indexRouter);
+//initialize and use sessions
+//session management
+app.use(session({
+  secret: 'supersecret',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use((req,res,next) => {
+  res.locals.isAuthenticated = req.isAuthenticated();
+  next();
+});
+
 app.use('/', authRouter);
+app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/artist', artistRouter);
 app.use('/stage', stageRouter);
 app.use('/performance', performanceRouter);
 
-/**
- * What lies beyon is the code, dedicated to various authentication methods
- */
-// Express session (provides client-side persistent authentication)
-app.use(
-  session({
-    secret: 'jkdfhlakdhkjlcansrlihaeuisfdlasdfgda',
-    resave: false,
-    saveUninitialized: true
-  })
-);
 
 
-app.use((req, res, next) => {
-  res.locals.isAuthenticated = req.isAuthenticated();
-  next();
-});
-
-//passport.use(new LocalStrategy(User.authenticate()));
 
 
 //GITHUB AUTHENTICATION
@@ -94,18 +93,14 @@ passport.use(
       callbackURL: `http://localhost:3000/auth/github/callback`
     },
     function(accessToken, refreshToken, profile, cb) {
-      User.findOne({ githubId: profile.id }, function(err, user) {
-        if (!err && !user) {
-          const newgithub = new User(profile);
-          newgithub.save();
-          return cb(null, newgithub);
-        } else {
-          return cb(err, user);
-        }
+      User.findOrCreate({ githubId: profile.id }, function(err, user) {
+        return cb(err, user);
       });
     }
   )
 );
+
+
 
 /*
 //Google Authentication
@@ -178,19 +173,7 @@ function(accessToken, refreshToken, profile, cb) {
 
 
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
 
-passport.deserializeUser((id, done) => {
-  User.findById(id).then(user => {
-    done(null, user);
-  });
-});
-
-/**
- * And the auth stuff is gone!
- */
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
