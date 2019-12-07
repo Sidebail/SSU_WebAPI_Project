@@ -73,6 +73,50 @@ router.get('/', async(req,res) => {
   res.render('performance/index', {performances, stages, sorting, ordering, q});
 });
 
+
+router.get('/stage', async(req,res) => {
+  //get stages
+  let stages = await Stage.find({$or: [{deleted: false}, {deleted: {$exists: false}}]}).lean();
+  
+  //get currently selected Stage
+  const selectedStage = req.query
+  var selectedStageId = selectedStage['stages']
+
+  //get dates by stage
+  var performanceDatesByStage = await PerformanceDate.where('stages', selectedStageId)
+  
+  var dateIdArray = [];
+  performanceDatesByStage.forEach(element => {
+    dateIdArray.push(element['_id']);
+  });
+  
+  var performanceArray = [];
+  var performances = await Performance.find()
+  performances.forEach(element => {
+    var tempDates = JSON.stringify(element['performanceDates'])
+    dateIdArray.forEach(dateIdEle => {
+      if(tempDates.includes(dateIdEle)){
+        if(!performanceArray.includes(element)){
+          performanceArray.push(element);
+          console.log(element);
+        }
+        //nuffin
+      }
+      else{
+        //not a match
+      }
+    });
+  });
+
+  var performances = performanceArray
+  q = ""
+  var sorting = "createAt";
+  var ordering = 'desc';
+
+  //render view
+  res.render('performance/index', {performances, stages, sorting, ordering, q});
+});
+
 //*GET* Detailed View of single performance
 router.get('/:id', async (req, res) =>{
   try {

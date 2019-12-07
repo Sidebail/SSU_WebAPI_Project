@@ -7,11 +7,11 @@ block content
         input(name="q", value=`${q}`)
         button search 
     p
-      select(name="stages",type=dropdown,multiple=true)
-        each item in stages
-          option(label=item.name,value=item._id)
-    
-      button(type="submit") Search Performance By Stage
+      form(method="get", action=`/performance/stage`)
+        select(name="stages", id="stages",type=dropdown,multiple=true)
+          each item in stages
+            option(label=item.name,value=item._id)
+        button Search Performance By Stage
          
       .sort CURRENTLY SORTED BY
         a(href=`/performance?sort=${sorting}&order=${ordering==='asc' ? 'desc' : 'asc'}&q=${q}`) 
