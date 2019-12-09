@@ -53,6 +53,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize()); // initialize Passport
 app.use(passport.session()); // use passport with session
 
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated();
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/users', usersRouter);
@@ -72,11 +77,6 @@ app.use(
   })
 );
 
-
-app.use((req, res, next) => {
-  res.locals.isAuthenticated = req.isAuthenticated();
-  next();
-});
 
 //passport.use(new LocalStrategy(User.authenticate()));
 
