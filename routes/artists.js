@@ -7,7 +7,7 @@ CRUD + Routes for Artists
 const _ = require('lodash');
 var express = require('express');
 var router = express.Router();
-var Artist = require('../models/Artist');
+var Artist = require('../models/artist');
 
 /*require authentication for certain routes
 const requireAuth = (req, res, next) => {
