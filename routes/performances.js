@@ -7,10 +7,10 @@ CRUD + Routes for performances
 const _ = require('lodash');
 var express = require('express');
 var router = express.Router();
-var Performance = require('../models/Performance');
+var Performance = require('../models/performance');
 var PerformanceDate = require('../models/PerformanceDate');
-var Artists = require('../models/Artist');
-var Stage = require('../models/Stage');
+var Artists = require('../models/artist');
+var Stage = require('../models/stage');
 
 /*require authentication for certain routes
 const requireAuth = (req, res, next) => {

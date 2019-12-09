@@ -7,9 +7,9 @@ CRUD + Routes for Stages
 const _ = require('lodash');
 var express = require('express');
 var router = express.Router();
-var Stage = require('../models/Stage');
-var Stages = require('../models/Stage');
-var Artist = require('../models/Artist');
+var Stage = require('../models/stage');
+var Stages = require('../models/stage');
+var Artist = require('../models/artist');
 
 
 //*GET* stages creation form
