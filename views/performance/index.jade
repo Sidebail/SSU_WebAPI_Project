@@ -3,6 +3,21 @@ extends ../layout
 block content
   h1= title
     h2 Meet the Woodstock Performances!
+      form(method="get", action=`/performance?sort=${sorting}&order=${ordering==='asc' ? 'desc' : 'asc'}`).query
+        input(name="q", value=`${q}`)
+        button search 
+    p
+      form(method="get", action=`/performance/stage`)
+        select(name="stages", id="stages",type=dropdown,multiple=true)
+          each item in stages
+            option(label=item.name,value=item._id)
+        button Search Performance By Stage
+         
+      .sort CURRENTLY SORTED BY
+        a(href=`/performance?sort=${sorting}&order=${ordering==='asc' ? 'desc' : 'asc'}&q=${q}`) 
+          =sorting
+          &nbsp;|&nbsp;
+          =ordering
       ul
           each performance in performances
             if performance._id == "5dd70b631c9d44000047006c"
@@ -10,6 +25,8 @@ block content
             else
               li
                 a(href=`/performance/${performance._id}`)= performance.name
+                .notes
+                  = performance.notes
               
     a(href="../") Home
     br

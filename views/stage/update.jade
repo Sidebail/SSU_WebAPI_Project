@@ -9,42 +9,6 @@ block content
     p
       input(name="name" placeholder="Stage's Name" required=true value=stage.name)
     p
-      select(name="four",type=dropdown)
-          if stage.four == "None."
-          
-          else
-            option(label=PerformerNames[0].name,value=stage.four, selected="selected")
-          each item in performances
-            option(label=item.name,value=item._id)
-      select(name="six",type=dropdown)
-          if stage.six == "None."
-          
-          else
-            option(label=PerformerNames[1].name,value=stage.six, selected="selected")
-          each item in performances
-            option(label=item.name,value=item._id)
-      select(name="eight",type=dropdown)
-          if stage.eight == "None."
-          
-          else
-            option(label=PerformerNames[2].name,value=stage.eight, selected="selected")
-          each item in performances
-            option(label=item.name,value=item._id)
-      select(name="ten",type=dropdown)
-          if stage.ten == "None."
-          
-          else
-            option(label=PerformerNames[3].name,value=stage.ten, selected="selected")
-          each item in performances
-            option(label=item.name,value=item._id)
-      select(name="twelve",type=dropdown)
-          if stage.twelve == "None."
-          
-          else
-            option(label=PerformerNames[4].name,value=stage.twelve, selected="selected")
-          each item in performances
-            option(label=item.name,value=item._id)
-    p
       input(name="size" placeholder="Size" required=true value=stage.size)
     p
       input(name="notes" placeholder="Extra notes" required=false value=stage.notes)

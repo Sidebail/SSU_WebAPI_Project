@@ -10,7 +10,7 @@ block content
     p
       input(name="name" placeholder="Performance's Name" required=true)
     p
-      select(name="artist",type=dropdown)
+      select(name="artists",type=dropdown,multiple=true)
         each item in artists
           option(label=item.name,value=item._id)
     p 

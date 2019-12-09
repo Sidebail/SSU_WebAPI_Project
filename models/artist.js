@@ -1,22 +1,33 @@
-/*
-artist.js
-
-- Artist Model
-
-*/
+const uuid = require('uuid');
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const {Schema} = mongoose;
+const {Types} = Schema;
 
-//Schema definition
-const artistSchema = new Schema({
-    ArtistId: {type: Number },
-    name: { type: String, required: true },
-    notes: {type: String },
-    image: {type: String} 
+const ArtistSchema = new Schema({
+    _id: {
+        type: Schema.Types.String,
+        default: uuid.v4
+    },
+    name: { 
+        type: Types.String, 
+        required: true 
+    },
+    notes: { 
+        type: Types.String,
+        default: '' 
+    },
+    image: { 
+        type: Types.String,
+        default: null
+    },
+    deleted: {
+        type: Types.Boolean,
+        index: true,
+        default: false
+    }
+}, {
+    collection: 'artists',
+    timestamps: true
 });
 
-//Creation of artists + use of schema
-const Artist = mongoose.model('Artist', artistSchema);
-
-//Allow use in other files
-module.exports = Artist;
+module.exports = mongoose.model('Artist', ArtistSchema);

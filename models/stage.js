@@ -1,28 +1,37 @@
-/*
-stage.js
-
-- Stage model
-
-*/
+const uuid = require('uuid');
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const {Schema} = mongoose;
+const {Types} = Schema;
 
-//Schema definition
-const stageSchema = new Schema({
-    StageId: {type: Number },
-    name: { type: String, required: true },
-    size: {type: String },
-    four: {type: mongoose.Schema.Types.ObjectId, default: null},
-    six: {type: mongoose.Schema.Types.ObjectId, default: null},
-    eight: {type: mongoose.Schema.Types.ObjectId, default: null},
-    ten: {type: mongoose.Schema.Types.ObjectId, default: null},
-    twelve: {type: mongoose.Schema.Types.ObjectId, default: null},
-    notes: {type: String },
-    image: {type: String}
+const StageSchema = new Schema({
+    _id: {
+        type: Types.String,
+        default: uuid.v4
+    },
+    name: { 
+        type: Types.String, 
+        required: true 
+    },
+    size: {
+        type: Types.String, 
+        default: ''
+    },
+    notes: {
+        type: Types.String, 
+        default: '' 
+    },
+    image: {
+        type: Types.String,
+        default: '' 
+    },
+    deleted: {
+        type: Types.Boolean,
+        index: true,
+        default: false
+    }
+}, {
+    collection: 'stages',
+    timestamps: true
 });
 
-//Creation of stage + use of schema
-const Stage = mongoose.model('Stage', stageSchema);
-
-//Allow use in other files
-module.exports = Stage;
+module.exports = mongoose.model('Stage', StageSchema);
