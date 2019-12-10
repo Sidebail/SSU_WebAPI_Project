@@ -1,36 +1,32 @@
 //File description - The nav bar at the top of the page
 //TODO figure out link to login
-doctype html
-html
-  head
-    header
-        nav.navbar.navbar-expand-lg.navbar-light
-        a.navbar-brand(href='/') Woodstock Online
-        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbar', aria-controls='navbar', aria-expanded='false', aria-label='Toggle navigation')
-            span.navbar-toggler-icon
-        #navbar.collapse.navbar-collapse
-            ul.navbar-nav.mr-auto
-            ul.navbar-nav
+nav.navbar.navbar-expand-lg.navbar-light
+    a.navbar-brand(href='/') Woodstock Online
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbar', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+        ul.navbar-nav
+            li.nav-item
+                a.btn.btn-github(href="/artist")
+                    span.ml-2 Artists
+            li.nav-item
+                a.btn.btn-github(href="/performance")
+                    span.ml-2 Performances
+            li.nav-item
+                a.btn.btn-github(href="/stage")
+                    span.ml-2 Stages
+            if isAuthenticated
+                p Welcome, #{username}!
                 li.nav-item
-                        a.btn.btn-github(href="/artist")
-                            span.ml-2 Artists
+                    a.nav-link(href='/logout') Logout
+            unless isAuthenticated
                 li.nav-item
-                        a.btn.btn-github(href="/performance")
-                            span.ml-2 Performances
+                    a.btn.btn-github(href="/login")
+                        i.fa.fa-github
+                        span.ml-2 Login Test
                 li.nav-item
-                        a.btn.btn-github(href="/stage")
-                            span.ml-2 Stages
-                if isAuthenticated
-                    p Welcome, #{username}!
-                    li.nav-item
-                        a.nav-link(href='/logout') Logout
-                unless isAuthenticated
-                    li.nav-item
-                        a.btn.btn-github(href="/login")
-                            i.fa.fa-github
-                            span.ml-2 Login Test
-                    li.nav-item
-                        a.btn.btn-github(href="/register")
-                            i.fa.fa-github
-                            span.ml-2 Register Test
+                    a.btn.btn-github(href="/register")
+                        i.fa.fa-github
+                        span.ml-2 Register Test
                 

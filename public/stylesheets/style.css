@@ -1,5 +1,16 @@
+:root {
+	--header-bg: #f2eecb; /* little greene old paper */
+	--header-border: #ad6f69 ; /* copper penny */
+	--related-green: #7fb875;
+}
+nav {
+	padding: 0%;
+	border-bottom: 2px solid var(--header-border);
+	background-color: rgb(255, 248, 156);     
+  }
 body {
-  padding: 50px;
+  padding: 30px;
+  padding-top: 0%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background:#fff;
   background-image: url("interlaced.png");
