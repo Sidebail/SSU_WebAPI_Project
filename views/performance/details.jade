@@ -20,30 +20,32 @@ block content
                 th Starts at
                 th Duration (hrs)
                 th Stages
-                th Action
+                if(user != null && user.role == "admin")
+                    th Action
             tbody
                 each performanceDate in performance.performanceDates
                     tr
                         td #{performanceDate.startsAt}
                         td #{performanceDate.durationHours}
                         td #{performanceDate.stages}
-                        td
-                            a(href="/performance/#{performance._id}/dates/#{performanceDate._id}/delete") DEL
-
-                form(method="post", action="/performance/#{performance._id}/dates")
-                    tr
-                        td 
-                            input(name="startsAt", type="datetime-local")
-                        td 
-                            input(name="durationHours", type="number", value="1.5")
-                        td 
-                            select(name="stages", multiple=true)
-                                each stage in stages
-                                    option(value=stage._id) #{stage.name}
-                        td
-                            button(style="background: none; border: 1px solid green") ADD
+                            if(user != null && user.role == "admin")
+                                td
+                                    a(href="/performance/#{performance._id}/dates/#{performanceDate._id}/delete") DEL
+                if(user != null && user.role == "admin")
+                    form(method="post", action="/performance/#{performance._id}/dates")
+                        tr
+                            td 
+                                input(name="startsAt", type="datetime-local")
+                            td 
+                                input(name="durationHours", type="number", value="1.5")
+                            td 
+                                select(name="stages", multiple=true)
+                                    each stage in stages
+                                        option(value=stage._id) #{stage.name}
+                            td
+                                button(style="background: none; border: 1px solid green") ADD
         hr
-
         a(href="/performance") Go Back
-        a(href="/performance/" + performance._id + "/update") Update Performance 
-        a(href="/performance/" + performance._id + "/delete") Delete
+        if(user != null && user.role == "admin")
+            a(href="/performance/" + performance._id + "/update") Update Performance 
+            a(href="/performance/" + performance._id + "/delete") Delete

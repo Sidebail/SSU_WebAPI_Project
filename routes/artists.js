@@ -9,25 +9,26 @@ var express = require('express');
 var router = express.Router();
 var Artist = require('../models/artist');
 
-/*require authentication for certain routes
+//require authentication for certain routes
 const requireAuth = (req, res, next) => {
-    if (req.isAuthenticated()) return next();
-    
-    return res.redirect('/login');
-  };
-*/
-
-
+  if(req.user == null || req.user.role == "common"){
+    return res.status(404).end('Never should have come here!');
+  }
+  if (req.user.role == "admin") return next();
+  
+  return res.redirect('/login');
+};
 
 //*GET* artist creation form
-router.get('/create', (req, res) => res.render('artist/create'));
+router.get('/create', requireAuth, (req, res) => res.render('artist/create'));
 
 //*POST* create artist after form completion
-router.post('/create', async (req, res) => {
+router.post('/create', requireAuth, async (req, res) => {
+  var user = req.user
   try {
     const data = _.pick(req.body, ['name', 'notes', 'image']);
     const artist = await Artist.create(data);
-    res.redirect(`/artist/${artist._id}`);
+    res.redirect(`/artist/${artist._id}`, {user});
   }
   catch (error) {
     console.error(error.message);
@@ -38,18 +39,20 @@ router.post('/create', async (req, res) => {
 /* GET artist page. */
 router.get('/', async(req,res) => {
     const artists = await Artist.find({deleted: false}).lean();
-    res.render('artist/index', {artists});
+    var user = req.user
+    res.render('artist/index', {artists, user});
 });
 
 //*GET* Detailed View of single Artist
 router.get('/:id', async (req,res) =>{
+  var user = req.user
   try {
     const {id} = req.params;
     const artist = await Artist.findOne({_id: id, deleted: false}).lean();
     if (!artist) {
       return res.status(404).end('Artist not found');
     }
-    res.render('artist/details', {artist});
+    res.render('artist/details', {artist, user});
   }
   catch (error) {
     console.error(error.message);
@@ -58,7 +61,7 @@ router.get('/:id', async (req,res) =>{
 });
 
 // Delete Artist (GET)
-router.get('/:id/delete',async(req,res) =>{
+router.get('/:id/delete', requireAuth, async(req,res) =>{
   try {
     const {id} = req.params;
     const artist = await Artist.findOne({_id: id});
@@ -77,7 +80,7 @@ router.get('/:id/delete',async(req,res) =>{
 
 
 //*GET* Update Form
-router.get('/:id/update', async(req, res) => {
+router.get('/:id/update', requireAuth, async(req, res) => {
   try {
     const {id} = req.params;
     const artist = await Artist.findOne({_id: id, deleted: false}).lean();
@@ -93,7 +96,8 @@ router.get('/:id/update', async(req, res) => {
 });
 
 //UPDATE the artist
-router.post('/:id/update', async (req,res) =>{
+router.post('/:id/update', requireAuth, async (req,res) =>{
+  var user = req.user
   try {
     const {id} = req.params;
     const data = _.pick(req.body, ['name', 'notes', 'artists']);
@@ -106,7 +110,7 @@ router.post('/:id/update', async (req,res) =>{
     Object.assign(artist, data);
     await artist.save();
 
-    res.redirect(`/artist/${artist._id}`);
+    res.redirect(`/artist/${artist._id}`, {user});
   }
   catch (error) {
     console.error(error.message);

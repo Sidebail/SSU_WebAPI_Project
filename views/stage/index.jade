@@ -11,4 +11,5 @@ block content
   #buttons_cont
     a(href="../") Home
     br
-    a(href="stage/create") Create New Stage
+    if(user != null && user.role == "admin")
+      a(href="stage/create") Create New Stage

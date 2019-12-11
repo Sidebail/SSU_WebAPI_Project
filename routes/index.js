@@ -4,11 +4,11 @@ var username;
 /* GET home page. */
 router.get('/', function(req, res, next) {
   try{
-    username = req.user.username
+    user = req.user
   }catch(exception){
-    username = ""
+    user = null
   }
-  res.render('index', { title: 'Woodstock Online', username });
+  res.render('index', { title: 'Woodstock Online', user });
 });
 
 module.exports = router;

@@ -12,24 +12,26 @@ var PerformanceDate = require('../models/PerformanceDate');
 var Artists = require('../models/artist');
 var Stage = require('../models/stage');
 
-/*require authentication for certain routes
+//require authentication for certain routes
 const requireAuth = (req, res, next) => {
-    if (req.isAuthenticated()) return next();
-    
-    return res.redirect('/login');
-  };
-*/
+  if(req.user == null || req.user.role == "common"){
+    return res.status(404).end('Never should have come here!');
+  }
+  if (req.user.role == "admin") return next();
+  
+  return res.redirect('/login');
+};
 
 
 
 //*GET* performance creation form
-router.get('/create', async(req, res) => {
+router.get('/create', requireAuth, async(req, res) => {
     const artists = await Artists.find();
     res.render('performance/create', {artists});
 });
 
 //*POST* create performance after form completion
-router.post('/create', async (req, res) => {
+router.post('/create', requireAuth, async (req, res) => {
   try {
     const data = _.pick(req.body, ['name', 'notes', 'artists']);
     const performance = await Performance.create(data);
@@ -43,6 +45,7 @@ router.post('/create', async (req, res) => {
 
 /* GET performance page. */
 router.get('/', async(req,res) => {
+  var user = req.user
   let stages = await Stage.find({$or: [{deleted: false}, {deleted: {$exists: false}}]}).lean();
   let {sort, order} = req.query; // performance?sort=name&order=asc
   if (!sort) sort = "createdAt";
@@ -70,11 +73,13 @@ router.get('/', async(req,res) => {
   }
   query.deleted = false;
   const performances = await Performance.find(query).sort(sort).lean();
-  res.render('performance/index', {performances, stages, sorting, ordering, q});
+  res.render('performance/index', {performances, stages, sorting, ordering, q, user});
 });
 
 
 router.get('/stage', async(req,res) => {
+  var user = req.user
+
   //get stages
   let stages = await Stage.find({$or: [{deleted: false}, {deleted: {$exists: false}}]}).lean();
   
@@ -114,11 +119,12 @@ router.get('/stage', async(req,res) => {
   var ordering = 'desc';
 
   //render view
-  res.render('performance/index', {performances, stages, sorting, ordering, q});
+  res.render('performance/index', {performances, stages, sorting, ordering, q, user});
 });
 
 //*GET* Detailed View of single performance
 router.get('/:id', async (req, res) =>{
+  var user = req.user
   try {
     const {id} = req.params;
     const performance = 
@@ -145,7 +151,7 @@ router.get('/:id', async (req, res) =>{
 
     const stages = await Stage.find({$or: [{deleted: false}, {deleted: {$exists: false}}]}).lean();
 
-    res.render('performance/details', {performance, stages});
+    res.render('performance/details', {performance, stages, user});
   }
   catch (error) {
     console.error(error.message);
@@ -154,6 +160,7 @@ router.get('/:id', async (req, res) =>{
 });
 
 router.post('/:id/dates', async (req, res) =>{
+  var user = req.user
   try {
     const {id} = req.params;
     const performance = await Performance.findOne({_id: id, deleted: false});
@@ -171,7 +178,7 @@ router.post('/:id/dates', async (req, res) =>{
     performance.performanceDates.push(performanceDate._id);
     await performance.save();
 
-    res.redirect(`/performance/${id}`);
+    res.redirect(`/performance/${id}`, {user});
   }
   catch (error) {
     console.error(error.message);
@@ -179,7 +186,8 @@ router.post('/:id/dates', async (req, res) =>{
   }
 });
 
-router.get('/:id/dates/:dateId/delete', async (req, res) =>{
+router.get('/:id/dates/:dateId/delete', requireAuth, async (req, res) =>{
+  var user = req.user
   try {
     const {id, dateId} = req.params;
     const performance = await Performance.findOne({_id: id, deleted: false});
@@ -191,7 +199,7 @@ router.get('/:id/dates/:dateId/delete', async (req, res) =>{
     performanceDate.deleted = true;
     performanceDate.save();
 
-    res.redirect(`/performance/${id}`);
+    res.redirect(`/performance/${id}`, {user});
   }
   catch (error) {
     console.error(error.message);
@@ -200,7 +208,8 @@ router.get('/:id/dates/:dateId/delete', async (req, res) =>{
 });
 
 // Delete Performance (GET)
-router.get('/:id/delete', async(req,res) =>{
+router.get('/:id/delete', requireAuth, async(req,res) =>{
+  var user = req.user
   try {
     const {id} = req.params;
     const performance = await Performance.findOne({_id: id});
@@ -209,7 +218,7 @@ router.get('/:id/delete', async(req,res) =>{
     }
     performance.deleted = true;
     await performance.save();
-    res.redirect('/performance');
+    res.redirect('/performance', {user});
   }
   catch (error) {
     console.error(error.message);
@@ -218,7 +227,8 @@ router.get('/:id/delete', async(req,res) =>{
 }); 
 
 //*GET* Update Form
-router.get('/:id/update', async(req, res) => {
+router.get('/:id/update', requireAuth, async(req, res) => {
+  var user = req.user
   try {
     const {id} = req.params;
     const performance = await Performance.findOne({_id: id, deleted: false}).lean();
@@ -226,7 +236,7 @@ router.get('/:id/update', async(req, res) => {
       return res.status(404).end('Performance not found');
     }
     const artists = await Artists.find().lean();
-    res.render('performance/update', { performance, artists });
+    res.render('performance/update', { performance, artists, user });
   }
   catch (error) {
     console.error(error.message);
@@ -235,7 +245,8 @@ router.get('/:id/update', async(req, res) => {
 });
 
 //UPDATE the performance
-router.post('/:id/update', async (req,res) =>{
+router.post('/:id/update', requireAuth, async (req,res) =>{
+  var user = req.user
   try {
     const {id} = req.params;
     const data = _.pick(req.body, ['name', 'notes', 'artists']);
@@ -248,7 +259,7 @@ router.post('/:id/update', async (req,res) =>{
     Object.assign(performance, data);
     await performance.save();
 
-    res.redirect(`/performance/${performance._id}`);
+    res.redirect(`/performance/${performance._id}`, {user});
   }
   catch (error) {
     console.error(error.message);

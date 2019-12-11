@@ -11,5 +11,5 @@ block content
   #buttons_cont
     a(href="../") Home
     br
-    if(!isAuthenticated)
+    if(user != null && user.role == "admin")
       a(href="artist/create") Create New Artist

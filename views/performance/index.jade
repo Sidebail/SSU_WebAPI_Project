@@ -30,4 +30,5 @@ block content
               
     a(href="../") Home
     br
-    a(href="performance/create") Create New Performance
+    if(user != null && user.role == "admin")
+      a(href="performance/create") Create New Performance

@@ -15,6 +15,6 @@ block content
                 p= artist.notes
     #buttons_cont
         a(href="/artist") Go Back 
-        if(!isAuthenticated)
+        if(user != null && user.role == "admin")
             a(href="/artist/" + artist._id + "/update") Update Artist 
             a(href="/artist/" + artist._id + "/delete") Delete

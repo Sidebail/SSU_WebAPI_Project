@@ -11,18 +11,28 @@ var Stage = require('../models/stage');
 var Stages = require('../models/stage');
 var Artist = require('../models/artist');
 
+//require authentication for certain routes
+const requireAuth = (req, res, next) => {
+  if(req.user == null || req.user.role == "common"){
+    return res.status(404).end('Never should have come here!');
+  }
+  if (req.user.role == "admin") return next();
+  
+  return res.redirect('/login');
+};
 
 //*GET* stages creation form
-router.get('/create', async(req, res) => {
+router.get('/create', requireAuth, async(req, res) => {
   res.render('stage/create', {})
 });
 
 //*POST* create stage after form completion
-router.post('/create', async (req, res) => {
+router.post('/create', requireAuth, async (req, res) => {
+  var user = req.user
   try {
     const data = _.pick(req.body, ['name', 'notes', 'size', 'image']);
     const stage = await Stage.create(data);
-    res.redirect(`/stage/${stage._id}`);
+    res.redirect(`/stage/${stage._id}`, {user});
   }
   catch (error) {
     console.error(error.message);
@@ -32,9 +42,10 @@ router.post('/create', async (req, res) => {
 
 /* GET stage page. */
 router.get('/', async(req,res) => {
+  var user = req.user
   try {
     const stages = await Stage.find({$or: [{deleted: false}, {deleted: {$exists: false}}]}).lean();
-    res.render('stage/index', {stages});
+    res.render('stage/index', {stages, user});
   }
   catch (error) {
     console.error(error.message);
@@ -44,6 +55,7 @@ router.get('/', async(req,res) => {
 
 //*GET* Detailed View of single Stage
 router.get('/:id', async (req,res) =>{
+  var user = req.user
   try {
     const {id} = req.params;
     const stage = 
@@ -53,7 +65,7 @@ router.get('/:id', async (req,res) =>{
     if (!stage) {
       return res.status(404).end('Stage not found');
     }
-    res.render('stage/details', {stage});
+    res.render('stage/details', {stage, user});
   }
   catch (error) {
     console.error(error.message);
@@ -62,7 +74,8 @@ router.get('/:id', async (req,res) =>{
 });
 
 // Delete Stage (GET)
-router.get('/:id/delete', async(req,res) =>{
+router.get('/:id/delete', requireAuth, async(req,res) =>{
+  var user = req.user
   try {
     const {id} = req.params;
     const stage = await Stage.findOne({_id: id});
@@ -71,7 +84,7 @@ router.get('/:id/delete', async(req,res) =>{
     }
     stage.deleted = true;
     await stage.save();
-    res.redirect('/stage');
+    res.redirect('/stage', {user});
   }
   catch (error) {
     console.error(error.message);
@@ -80,7 +93,7 @@ router.get('/:id/delete', async(req,res) =>{
 }); 
 
 //*GET* Update Form
-router.get('/:id/update', async(req, res) => {
+router.get('/:id/update', requireAuth, async(req, res) => {
   try {
     const {id} = req.params;
     const stage = await Stage.findOne({_id: id, deleted: false}).lean();
@@ -96,7 +109,8 @@ router.get('/:id/update', async(req, res) => {
 });
 
 //UPDATE the stage
-router.post('/:id/update', async (req,res) =>{
+router.post('/:id/update', requireAuth, async (req,res) =>{
+  var user = req.user
   try {
     const {id} = req.params;
     const data = _.pick(req.body, ['name', 'notes', 'size', 'image']);
@@ -109,7 +123,7 @@ router.post('/:id/update', async (req,res) =>{
     Object.assign(stage, data);
     await stage.save();
 
-    res.redirect(`/stage/${stage._id}`);
+    res.redirect(`/stage/${stage._id}`, user);
   }
   catch (error) {
     console.error(error.message);

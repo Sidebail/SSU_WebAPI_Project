@@ -17,7 +17,8 @@ nav.navbar.navbar-expand-lg.navbar-light
                 a.btn.btn-github(href="/stage")
                     span.ml-2 Stages
             if isAuthenticated
-                p Welcome, #{username}!
+                li.nav-item
+                    span Hey, #{user.username}!
                 li.nav-item
                     a.nav-link(href='/logout') Logout
             unless isAuthenticated
