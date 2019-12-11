@@ -1,5 +1,15 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+
 body {
-  padding: 50px;
+  padding: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background:#fff;
   background-image: url("interlaced.png");
@@ -56,7 +66,7 @@ a {
 #main-navbar {
 	position: -webkit-sticky;
 	position: sticky;
-	top: 0;
+	top: 0em;
 }
 #main-navbar ul {
 	list-style-type: none;
@@ -64,10 +74,6 @@ a {
 	padding: 0;
 	overflow: hidden;
 	background-color: #333;
-
-	position: -webkit-sticky;
-	position: sticky;
-	top: 0;
 }
 #main-navbar li {
 	float: left;
