@@ -1,20 +1,22 @@
 //File description - The nav bar at the top of the page
 //TODO figure out link to login
-nav.navbar.navbar-expand-lg.navbar-light
-  a.navbar-brand(href='/') Woodstock Online
-  button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbar', aria-controls='navbar', aria-expanded='false', aria-label='Toggle navigation')
-    span.navbar-toggler-icon
+nav.navbar.navbar-expand-lg.navbar-light#main-navbar
+  //- a.navbar-brand(href='/') Woodstock Online
+  //- button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbar', aria-controls='navbar', aria-expanded='false', aria-label='Toggle navigation')
+  //-   span.navbar-toggler-icon
   #navbar.collapse.navbar-collapse
     ul.navbar-nav.mr-auto
     ul.navbar-nav
+      li.nav-item.active.title-item
+        a.navbar-brand(href='/') Woodstock Online
+      li.nav-item
+        a.btn.btn-github(href="/artist")
+          span.ml-2 Artists
+      if isAuthenticated
         li.nav-item
-                a.btn.btn-github(href="/artist")
-                    span.ml-2 Artists
-        if isAuthenticated
-            li.nav-item
-            a.nav-link(href='/logout') Logout
-        else
-            li.nav-item
-                a.btn.btn-github(href="/login")
-                    span.ml-2 Login
-        
+          a.nav-link(href='/logout') Logout
+      else
+        li.nav-item
+          a.btn.btn-github(href="/login")
+            span.ml-2 Login
+      

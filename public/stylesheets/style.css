@@ -51,3 +51,35 @@ h4 {
 a {
   color: #00B7FF;
 }
+
+/* Navbar code */
+#main-navbar ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+}
+#main-navbar li {
+	float: left;
+}
+#main-navbar li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+#main-navbar li a:hover {
+	background-color: #111;
+}
+#main-navbar .active {
+	background-color: #0047AB;
+  }
+#main-navbar .title-item {
+	font-size: large;
+}
