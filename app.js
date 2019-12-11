@@ -1,24 +1,26 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
 //import mongoose
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
  
+console.log('Opening connection to MongoDB');
 
-
-mongoose.connect(`mongodb+srv://adminguy:NLYzNnEkhcZmhxaK@musicfestapi-nrzaw.mongodb.net/test?retryWrites=true&w=majority`, {
+mongoose.connect(process.env.DB_URI, {
+  auth: {
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD
+  },
   useNewUrlParser: true,
   useUnifiedTopology: true  //avoid deprec. warning
-});
-var db = mongoose.connection;
-db.on('error', err => console.error(err));
+}).catch(err => console.error(`ERROR: ${err}`));
 db.once('open', () => console.log('Mongo Connection Successful!'));
 
-
+var db = mongoose.connection;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
