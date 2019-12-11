@@ -3,10 +3,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
-//import mongoose
 const mongoose = require('mongoose')
 
+require('dotenv').config();
  
 console.log('Opening connection to MongoDB');
 
@@ -18,9 +17,9 @@ mongoose.connect(process.env.DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true  //avoid deprec. warning
 }).catch(err => console.error(`ERROR: ${err}`));
-db.once('open', () => console.log('Mongo Connection Successful!'));
 
 var db = mongoose.connection;
+db.once('open', () => console.log('Mongo Connection Successful!'));
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
