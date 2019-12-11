@@ -1,11 +1,11 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
 //import mongoose
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
 //Import auth packages
 const session = require('express-session');
@@ -17,17 +17,23 @@ const TwitterStrategy = require('passport-twitter').Strategy;
 const VKontakteStrategy = require('passport-vkontakte').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const User = require('./models/newUser');
-
  
+//Load the .env
+require('dotenv').config();
+ 
+console.log('Opening connection to MongoDB');
 //connect mongoose
-mongoose.connect(`mongodb+srv://adminguy:NLYzNnEkhcZmhxaK@musicfestapi-nrzaw.mongodb.net/test?retryWrites=true&w=majority`, {
+mongoose.connect(process.env.DB_URI, {
+  auth: {
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD
+  },
   useNewUrlParser: true,
   useUnifiedTopology: true  //avoid deprec. warning
-});
+}).catch(err => console.error(`ERROR: ${err}`));
 
 //mongoose variables
 var db = mongoose.connection;
-db.on('error', err => console.error(err));
 db.once('open', () => console.log('Mongo Connection Successful!'));
 
 
