@@ -105,6 +105,7 @@ ul {
 	justify-content: center;
 	text-align: left !important;
 	transition: all .2s ease-in-out;
+	background-color: #f9f9f9 !important;
 }
 .card:hover {
 	transform: scale(1.1);
