@@ -1,10 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  h2 Welcome to #{title}
+  h1 Welcome to #{title}
+  h2 World Class Concerts
   #crowd(style='position: relative; margin: 10px auto 0px; max-width: 1440px;')
-    img.cycle-slide.cycle-sentinel(src='https://busites-www.s3.amazonaws.com/woodstockcom/2014/08/epic_slider.jpg', style='position: center; width: 75%; height: 75%; top: 0px; left: 50px; opacity: 1; display: block;')
+    img.cycle-slide.cycle-sentinel(src='https://busites-www.s3.amazonaws.com/woodstockcom/2014/08/epic_slider.jpg', style='position: center; width: 75%; height: 80%; top: 0px; left: 50px; opacity: 1; display: block;')
   if(user == null)
   else if(user.role == "admin") 
     a(href="/artist") Show all Artists
