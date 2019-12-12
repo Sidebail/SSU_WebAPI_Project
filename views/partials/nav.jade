@@ -18,16 +18,16 @@ nav.navbar.navbar-expand-lg.navbar-light
                     span.ml-2 Stages
             if isAuthenticated
                 li.nav-item
-                    span Hey, #{user.username}!
+                    a.nav-link(href='/') <b>You are:</b> #{user.username}!
                 li.nav-item
                     a.nav-link(href='/logout') Logout
             unless isAuthenticated
                 li.nav-item
                     a.btn.btn-github(href="/login")
                         //- i.fa.fa-github
-                        span.ml-2 Login Test
+                        span.ml-2 Login
                 li.nav-item
                     a.btn.btn-github(href="/register")
                         //- i.fa.fa-github
-                        span.ml-2 Register Test
+                        span.ml-2 Register
                 

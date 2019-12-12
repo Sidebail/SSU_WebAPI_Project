@@ -7,14 +7,15 @@ extends ../layout
 block content
     #artistDet_cont
         h1= artist.name
-        ul
+        #buttons_cont
+        a(href="/artist") Go Back 
+        if(user != null && user.role == "admin")
+            a(href="/artist/" + artist._id + "/update") | Update Artist | 
+            a(href="/artist/" + artist._id + "/delete") Delete
+        ul(style="text-align: center;")
             li
                 img.image(src='#{artist.image}' alt="Image not loaded lol")
             li
-                p About the artist:
+                h5 <u>About the artist</u>
                 p= artist.notes
-    #buttons_cont
-        a(href="/artist") Go Back 
-        if(user != null && user.role == "admin")
-            a(href="/artist/" + artist._id + "/update") Update Artist 
-            a(href="/artist/" + artist._id + "/delete") Delete
+    

@@ -6,9 +6,16 @@ extends ../layout
 
 block content
   a(href="/artist") Go Back
-  form(method="POST")
-    input(name="ArtistId" hidden=true value=artist.ArtistId)
-    input(name="name" placeholder="Artist's Name" required=true value=artist.name)
-    input(name="notes" placeholder="Extra notes" required=false value=artist.notes)
-    input(name="image" placeholder="Image link" required=false value=artist.image)
+  form(method="POST" style="text-align: center;")
+    p
+      input(name="ArtistId" hidden=true value=artist.ArtistId style="width: 500px;")
+    p <u>Artist Name</u>
+      br
+      input(name="name" placeholder="Artist's Name" required=true value=artist.name style="width: 500px;")
+    p <u>Notes</u>
+      br
+      input(name="notes" placeholder="Extra notes" required=false value=artist.notes style="width: 500px;")
+    p <u>Image Link</u>
+      br
+      input(name="image" placeholder="Image link" required=false value=artist.image style="width: 500px;")
     button(type="submit") Update Artist

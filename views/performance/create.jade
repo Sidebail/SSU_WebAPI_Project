@@ -6,14 +6,19 @@ extends ../layout
 
 block content
   a(href="/performance") Go Back
-  form(method="POST" action="/performance/create")
-    p
+  form(method="POST" action="/performance/create" style="text-align: center;")
+    p<u>Peformance Name</u>
+      br
       input(name="name" placeholder="Performance's Name" required=true)
-    p
+    p<u>Select Artist</u>
+      br
       select(name="artists",type=dropdown,multiple=true)
         each item in artists
-          option(label=item.name,value=item._id)
-    p 
+          if(item.deleted == true)
+          else
+            option(label=item.name,value=item._id)
+    p<u>Notes</u>
+      br
       input(name="notes" placeholder="Extra notes" required=false style="width:200px; height:200px; resize:both; overflow: auto;")
     p 
       button(type="submit") Create Performance

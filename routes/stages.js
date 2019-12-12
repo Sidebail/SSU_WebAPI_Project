@@ -32,7 +32,7 @@ router.post('/create', requireAuth, async (req, res) => {
   try {
     const data = _.pick(req.body, ['name', 'notes', 'size', 'image']);
     const stage = await Stage.create(data);
-    res.redirect(`/stage/${stage._id}`, {user});
+    res.redirect(`/stage/${stage._id}`);
   }
   catch (error) {
     console.error(error.message);
@@ -84,7 +84,7 @@ router.get('/:id/delete', requireAuth, async(req,res) =>{
     }
     stage.deleted = true;
     await stage.save();
-    res.redirect('/stage', {user});
+    res.redirect('/stage');
   }
   catch (error) {
     console.error(error.message);
@@ -123,7 +123,7 @@ router.post('/:id/update', requireAuth, async (req,res) =>{
     Object.assign(stage, data);
     await stage.save();
 
-    res.redirect(`/stage/${stage._id}`, user);
+    res.redirect(`/stage/${stage._id}`);
   }
   catch (error) {
     console.error(error.message);

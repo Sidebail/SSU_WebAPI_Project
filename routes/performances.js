@@ -178,7 +178,7 @@ router.post('/:id/dates', async (req, res) =>{
     performance.performanceDates.push(performanceDate._id);
     await performance.save();
 
-    res.redirect(`/performance/${id}`, {user});
+    res.redirect(`/performance/${id}`);
   }
   catch (error) {
     console.error(error.message);
@@ -199,7 +199,7 @@ router.get('/:id/dates/:dateId/delete', requireAuth, async (req, res) =>{
     performanceDate.deleted = true;
     performanceDate.save();
 
-    res.redirect(`/performance/${id}`, {user});
+    res.redirect(`/performance/${id}`);
   }
   catch (error) {
     console.error(error.message);
@@ -218,7 +218,7 @@ router.get('/:id/delete', requireAuth, async(req,res) =>{
     }
     performance.deleted = true;
     await performance.save();
-    res.redirect('/performance', {user});
+    res.redirect('/performance');
   }
   catch (error) {
     console.error(error.message);
@@ -259,7 +259,7 @@ router.post('/:id/update', requireAuth, async (req,res) =>{
     Object.assign(performance, data);
     await performance.save();
 
-    res.redirect(`/performance/${performance._id}`, {user});
+    res.redirect(`/performance/${performance._id}`);
   }
   catch (error) {
     console.error(error.message);

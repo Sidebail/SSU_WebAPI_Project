@@ -28,7 +28,7 @@ router.post('/create', requireAuth, async (req, res) => {
   try {
     const data = _.pick(req.body, ['name', 'notes', 'image']);
     const artist = await Artist.create(data);
-    res.redirect(`/artist/${artist._id}`, {user});
+    res.redirect(`/artist/${artist._id}`);
   }
   catch (error) {
     console.error(error.message);
@@ -110,7 +110,7 @@ router.post('/:id/update', requireAuth, async (req,res) =>{
     Object.assign(artist, data);
     await artist.save();
 
-    res.redirect(`/artist/${artist._id}`, {user});
+    res.redirect(`/artist/${artist._id}`);
   }
   catch (error) {
     console.error(error.message);
