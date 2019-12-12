@@ -5,14 +5,18 @@ extends ../layout
 
 block content
   a(href="/stage") Go Back
-  form(method="POST")
-    p
+  form(method="POST" style="text-align: center;")
+    p<u>Stage Name</u>
+      br
       input(name="name" placeholder="Stage's Name" required=true value=stage.name)
-    p
+    p<u>Size</u>
+      br
       input(name="size" placeholder="Size" required=true value=stage.size)
-    p
+    p<u>Notes</u>
+      br
       input(name="notes" placeholder="Extra notes" required=false value=stage.notes)
-    p
+    p<u>Image Link</u>
+      br
       input(name="image" placeholder="Image link" required=false value=stage.image)
     p
       button(type="submit") Update Stage

@@ -6,6 +6,10 @@ extends ../layout
 
 block content
         h1= performance.name
+        a(href="/performance") Go Back
+        if(user != null && user.role == "admin")
+            a(href="/performance/" + performance._id + "/update") | Update Performance | 
+            a(href="/performance/" + performance._id + "/delete") Delete
         p= `Artists performing:`
         ul
             each artist in performance.artists
@@ -45,7 +49,4 @@ block content
                             td
                                 button(style="background: none; border: 1px solid green") ADD
         hr
-        a(href="/performance") Go Back
-        if(user != null && user.role == "admin")
-            a(href="/performance/" + performance._id + "/update") Update Performance 
-            a(href="/performance/" + performance._id + "/delete") Delete
+        

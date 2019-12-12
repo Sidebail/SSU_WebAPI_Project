@@ -6,14 +6,18 @@ extends ../layout
 
 block content
   a(href="/stage") Go Back
-  form(method="POST" action="/stage/create")
-    p
+  form(method="POST" action="/stage/create" style="text-align: center;")
+    p<u>Stage Name</u>
+      br
       input(name="name" placeholder="Stage Name" required=true)
-    p
+    p<u>Size</u>
+      br
       input(name="size" placeholder="Size" required=true)
-    p
+    p<u>Notes</u>
+      br
       input(name="notes" placeholder="Notes" required=false style="width:200px; height:200px; resize:both; overflow: auto;")
-    p
+    p<u>Image Link</u>
+      br
       input(name="image" placeholder="Image link" required=false)
     p 
       button(type="submit") Create Stage

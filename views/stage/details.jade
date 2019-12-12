@@ -5,15 +5,16 @@
 extends ../layout
 
 block content
+        a(href="/stage") Go Back 
+        if(user != null && user.role == "admin")
+            a(href="/stage/" + stage._id + "/update") | Update Stage |
+            a(href="/stage/" + stage._id + "/delete") Delete
         h1= stage.name
-        ul
+        ul(style="text-align: center;")
             li
                 img.image(src='#{stage.image}' alt="Image not loaded :(")
             li
                 p Stage size: #{stage.size}
             li
                 p About the Stage: #{stage.notes}
-        a(href="/stage") Go Back 
-        if(user != null && user.role == "admin")
-            a(href="/stage/" + stage._id + "/update") Update Stage
-            a(href="/stage/" + stage._id + "/delete") Delete
+        
