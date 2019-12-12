@@ -18,15 +18,15 @@ block content
           =sorting
           &nbsp;|&nbsp;
           =ordering
-      ul
-          each performance in performances
-            if performance._id == "5dd70b631c9d44000047006c"
+      ul.cards
+        each performance in performances
+          if performance._id == "5dd70b631c9d44000047006c"
 
-            else
-              li
-                a(href=`/performance/${performance._id}`)= performance.name
-                .notes
-                  = performance.notes
+          else
+            li.card
+              a(href=`/performance/${performance._id}`)
+                h3= performance.name
+                p= performance.notes
               
     a(href="../") Home
     br
