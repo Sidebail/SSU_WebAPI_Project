@@ -13,13 +13,16 @@ block content
         p= `Artists performing:`
         ul
             each artist in performance.artists
-                li #{artist.name}
-        p= `About the performance: ${performance.notes}`
+                li 
+                    p=artist.name
+                    img.image(src='#{artist.image}' alt="Image not loaded lol")
+                li  
+                    p= `About the performance: ${performance.notes}`
         
         hr
         
         p Dates
-        table(border=1)
+        table(border=1, style="text-align: center;")
             thead
                 th Starts at
                 th Duration (hrs)
