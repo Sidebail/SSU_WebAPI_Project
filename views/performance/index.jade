@@ -3,19 +3,20 @@ extends ../layout
 block content
   h1= title
   h2 Meet the Woodstock Performances!
-  form(method="get", action=`/performance?sort=${sorting}&order=${ordering==='asc' ? 'desc' : 'asc'}`).query
-    input(name="q", value=`${q}`)
-    button search 
+  form.performances(method="get", action=`/performance?sort=${sorting}&order=${ordering==='asc' ? 'desc' : 'asc'}`).query
+    input(type="text", placeholder="Search..." name="q", value=`${q}`)
+    button Search 
     
-  form(method="get", action=`/performance/stage`)
+  form.performances(method="get", action=`/performance/stage`)
     div.select
       select(name="stages", id="stages",type=dropdown)
         option(selected disabled) Select stage
         each item in stages
           option(label=item.name,value=item._id)
-    button Search Performance By Stage
+    button#filter Filter
          
-  .sort CURRENTLY SORTED BY
+  .sort 
+    p CURRENTLY SORTED BY:
     a(href=`/performance?sort=${sorting}&order=${ordering==='asc' ? 'desc' : 'asc'}&q=${q}`) 
       =sorting
       &nbsp;|&nbsp;
