@@ -10,14 +10,15 @@ block content
         if(user != null && user.role == "admin")
             a(href="/performance/" + performance._id + "/update") | Update Performance | 
             a(href="/performance/" + performance._id + "/delete") Delete
-        p= `Artists performing:`
-        ul
+        hr
+        ul(style="text-align: center")
             each artist in performance.artists
                 li 
-                    p=artist.name
+                    h5=artist.name
                     img.image(src='#{artist.image}' alt="Image not loaded lol")
                 li  
-                    p= `About the performance: ${performance.notes}`
+                    h5= `About`
+                    p= `${performance.notes}`
         
         hr
         
