@@ -270,3 +270,8 @@ form.performances::after {
 	background-color: #111;
 	color: seashell;
 }
+
+.detailsTable {
+	margin-left: 35%;
+	justify-content: center;
+}
