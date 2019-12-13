@@ -139,6 +139,7 @@ ul {
 #artistsList_cont > ul > li {
 	max-width: 20%;
 	max-height: 20%;
+	margin-bottom: 40px;
 }
 
 /* Select menu shit */
