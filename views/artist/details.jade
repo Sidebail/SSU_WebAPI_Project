@@ -8,7 +8,7 @@ block content
     #artistDet_cont
         h1= artist.name
         #buttons_cont
-        a(href="/artist") Go Back 
+        a.btn.btn-back(href="/artist") Go Back 
         if(user != null && user.role == "admin")
             a(href="/artist/" + artist._id + "/update") | Update Artist | 
             a(href="/artist/" + artist._id + "/delete") Delete
