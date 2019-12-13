@@ -275,3 +275,7 @@ form.performances::after {
 	margin-left: 35%;
 	justify-content: center;
 }
+
+table {
+	margin: auto !important;
+}
