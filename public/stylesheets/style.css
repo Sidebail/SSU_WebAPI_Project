@@ -99,6 +99,7 @@ ul {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
+	align-items: stretch;
  }
  .card {
 	flex: 0 1 30%;
@@ -109,7 +110,7 @@ ul {
 	border: 1px groove #333 !important;
 }
 .card:hover {
-	transform: scale(1.1);
+	transform: scale(1.05);
 }
 @media screen and (min-width: 40em) {
     .cards {
@@ -136,4 +137,56 @@ ul {
 #artistsList_cont > ul > li {
 	max-width: 20%;
 	max-height: 20%;
+}
+
+/* Select menu shit */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #333;
+  background-image: none;
+}
+/* Remove IE arrow */
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select */
+.select {
+  position: relative;
+  display: flex;
+  width: 20em;
+  height: 3em;
+  line-height: 3;
+  background: #333;
+  overflow: hidden;
+  border-radius: .25em;
+}
+select {
+  flex: 1;
+  padding: 0 .5em;
+  color: seashell;
+  cursor: pointer;
+}
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  background: #34495e;
+  cursor: pointer;
+  pointer-events: none;
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
+/* Transition */
+.select:hover::after {
+  color: seashell;
 }
