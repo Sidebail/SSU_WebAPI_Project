@@ -153,6 +153,8 @@ ul {
 	max-width: 20%;
 	max-height: 20%;
 	margin-bottom: 40px;
+	margin-left: 20px;
+    margin-right: 20px;
 }
 #artistDet_cont{
 	margin: auto;
