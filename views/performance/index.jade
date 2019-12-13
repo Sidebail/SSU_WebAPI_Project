@@ -31,6 +31,5 @@ block content
             h3= performance.name
             p= performance.notes
               
-    br
     if(user != null && user.role == "admin")
-      a(href="performance/create") Create New Performance
+      a.card(href="performance/create") Create New Performance

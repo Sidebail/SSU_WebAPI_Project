@@ -6,10 +6,10 @@ extends ../layout
 
 block content
         h1= performance.name
-        a(href="/performance") Go Back
+        a.btn(href="/performance") Go Back
         if(user != null && user.role == "admin")
-            a(href="/performance/" + performance._id + "/update") | Update Performance | 
-            a(href="/performance/" + performance._id + "/delete") Delete
+            a.btn(href="/performance/" + performance._id + "/update") Update Performance
+            a.btn(href="/performance/" + performance._id + "/delete") Delete
         hr
         ul(style="text-align: center")
             each artist in performance.artists
@@ -49,7 +49,7 @@ block content
                             td 
                                 select(name="stages", multiple=true)
                                     each stage in stages
-                                        option(value=stage._id) #{stage.name}
+                                        option(label=stage.name, value=stage._id) #{stage.name}
                             td
                                 button(style="background: none; border: 1px solid green") ADD
         hr

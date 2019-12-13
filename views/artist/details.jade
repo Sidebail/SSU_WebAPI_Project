@@ -10,8 +10,8 @@ block content
         #buttons_cont
         a.btn.btn-back(href="/artist") Go Back 
         if(user != null && user.role == "admin")
-            a(href="/artist/" + artist._id + "/update") | Update Artist | 
-            a(href="/artist/" + artist._id + "/delete") Delete
+            a.btn(href="/artist/" + artist._id + "/update") Update Artist  
+            a.btn(href="/artist/" + artist._id + "/delete") Delete
         ul(style="text-align: center;")
             li
                 img.image(src='#{artist.image}' alt="Image not loaded lol")

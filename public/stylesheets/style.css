@@ -125,6 +125,9 @@ ul {
 	border: 1px groove #333 !important;
 	margin: 5px 5px 5px 5px;
 }
+.cardIndex {
+	margin: 15px 25px 5px 25px;
+}
 .card:hover {
 	transform: scale(1.05);
 }
@@ -279,4 +282,24 @@ form.performances::after {
 
 table {
 	margin: auto !important;
+}
+
+body > a, .cards > a, #buttons_cont > a, #artistDet_cont > a{
+	background-color: #333 !important;
+	color: seashell !important;
+}
+body > a, #artistDet_cont > a {
+	padding: 5px;
+	margin: 5px;
+}
+body > a:hover, nav a:hover, #buttons_cont > a, #artistDet_cont > a:hover {
+	background-color: #111 !important;
+}
+
+li > a {
+	background-color: inherit !important; 
+}
+
+body > ul > a.card {
+	text-align: center !important;
 }
