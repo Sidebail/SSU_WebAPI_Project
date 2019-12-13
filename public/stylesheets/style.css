@@ -109,8 +109,9 @@ ul {
 }
 .cards {
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+	flex-wrap: wrap !important;
+	flex-direction: row !important;
+	justify-content: center !important;
 	align-items: stretch;
 	padding: 0 40px 20px 40px;
  }
@@ -153,7 +154,9 @@ ul {
 	max-height: 20%;
 	margin-bottom: 40px;
 }
-
+#artistDet_cont{
+	margin: auto;
+}
 /* Select menu shit */
 select {
 	-webkit-appearance: none;
