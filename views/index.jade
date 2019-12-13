@@ -7,9 +7,11 @@ block content
     img.cycle-slide.cycle-sentinel(src='https://busites-www.s3.amazonaws.com/woodstockcom/2014/08/epic_slider.jpg', style='position: center; width: 75%; height: 80%; top: 0px; left: 50px; opacity: 1; display: block;')
   if(user == null)
   else if(user.role == "admin") 
-    a(href="/artist") Show all Artists
+
+  ul.cards
+    a(class='cardIndex' href="/artist") Show all Artists
     br
-    a(href="/stage") Show all Stages
+    a(class='cardIndex' href="/stage") Show all Stages
     br
-    a(href="/performance") Show all Performances
+    a(class='cardIndex' href="/performance") Show all Performances
   

@@ -93,7 +93,20 @@ ul {
 	list-style: none;
 }
 
-/* card layout shit */
+/* card layout */
+.cardIndex {
+	flex: 0 20%;
+	justify-content: center;
+	text-align: center !important;
+	transition: all .2s ease-in-out;
+	background-color: #f9f9f9 !important;
+	border: 3px groove #333 !important;
+	margin: 15px 50px 5px 5px;
+	padding: 10px;
+}
+.cardIndex:hover {
+	transform: scale(1.05);
+}
 .cards {
 	display: flex;
 	flex-wrap: wrap;
