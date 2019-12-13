@@ -303,3 +303,7 @@ li > a {
 body > ul > a.card {
 	text-align: center !important;
 }
+
+.btn {
+	margin: 10px;
+}
